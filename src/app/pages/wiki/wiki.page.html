@@ -1,10 +1,27 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title class="titulo">Medicamentos</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-
-<ion-content class="medi">
-
-</ion-content>
+<ion-menu side="start" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Contenido</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-button fill="clear" expand="full" class="btn">
+      <ion-icon name="medic"></ion-icon>
+      <ion-label>Componente</ion-label>
+    </ion-button>
+    <ion-button fill="clear" expand="full" class="btn">
+      <ion-icon name="caret-forward-circle"></ion-icon>
+      <ion-label class="lab">Videos</ion-label>
+    </ion-button>
+  </ion-content>
+</ion-menu>
+<div class="medi" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Medicamentos</ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+</div>
