@@ -23,6 +23,11 @@ const routes: Routes = [
     path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule),
     canActivate: [ingresarGuard]
+  },
+  {
+    path: 'cuenta',
+    loadChildren: () => import('./cuenta/cuenta.module').then( m => m.CuentaPageModule),
+    canActivate: [ingresarGuard]
   }
 ];
 

@@ -24,11 +24,6 @@ const routes: Routes = [
         loadChildren: () => import('./../../pages/calendar/calendar.module').then( m => m.CalendarPageModule),
         canActivate: [ingresarGuard]
       },
-      {
-        path: 'cuenta',
-        loadChildren: () => import('./../../pages/cuenta/cuenta.module').then( m => m.CuentaPageModule),
-        canActivate: [ingresarGuard]
-      }
     ]
   }
 ];

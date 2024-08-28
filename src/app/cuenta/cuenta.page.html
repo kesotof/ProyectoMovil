@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+		  <ion-back-button defaultHref="/tabs/menu"></ion-back-button>
+		</ion-buttons>
+    <ion-title class="titulo">Cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content">
+  <ion-title class="subt">General</ion-title>
+  <ion-button fill="clear" expand="full" class="btn" (click)="onLogout()">
+    <ion-label>Cerrar sesion</ion-label>
+  </ion-button>
+  <ion-button fill="clear" expand="full" class="btn" (click)="onItemClick()">
+    <ion-label>Item 2</ion-label>
+  </ion-button>
+</ion-content>
