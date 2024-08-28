@@ -34,16 +34,20 @@ const routes: Routes = [
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
   },
   {
-    path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
-  },
-  {
-    path: 'tabs',
-    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
-  },
-  {
     path: 'cuentaa',
     loadChildren: () => import('./pages/cuentaa/cuentaa.module').then( m => m.CuentaaPageModule)
+  },
+  {
+    path: 'wiki',
+    loadChildren: () => import('./pages/wiki/wiki.module').then( m => m.WikiPageModule)
+  },
+  {
+    path: 'menu',
+    loadChildren: () => import('./pages/menu/menu.module').then( m => m.MenuPageModule)
+  },
+  {
+    path: 'calendar',
+    loadChildren: () => import('./pages/calendar/calendar.module').then( m => m.CalendarPageModule)
   },
 ];
 
