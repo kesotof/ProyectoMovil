@@ -28,7 +28,11 @@ const routes: Routes = [
     path: 'cuenta',
     loadChildren: () => import('./cuenta/cuenta.module').then( m => m.CuentaPageModule),
     canActivate: [ingresarGuard]
+  },  {
+    path: 'video',
+    loadChildren: () => import('./video/video.module').then( m => m.VideoPageModule)
   }
+
 ];
 
 @NgModule({
