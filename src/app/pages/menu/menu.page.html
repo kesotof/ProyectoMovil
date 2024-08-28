@@ -1,13 +1,10 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>menu</ion-title>
+    <ion-title class="titulo">menu</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/cuenta']">
+        <ion-icon name="person"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
