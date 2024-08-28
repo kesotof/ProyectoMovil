@@ -6,7 +6,7 @@ export const noIngresadoGuard: CanActivateFn = (route, state) => {
   const navCtrl = inject(NavController);
 
   if (localStorage.getItem("ingresado")) {
-    navCtrl.navigateRoot('inicio');
+    navCtrl.navigateRoot('tabs');
     return false;
   } else {
     return true;

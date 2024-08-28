@@ -25,29 +25,29 @@ const routes: Routes = [
     canActivate: [ingresarGuard]
   },
   {
-    path: 'cuenta',
-    loadChildren: () => import('./cuenta/cuenta.module').then( m => m.CuentaPageModule),
+    path: 'tabs',
+    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule),
     canActivate: [ingresarGuard]
   },
   {
-    path: 'tabs',
-    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
-  },
-  {
-    path: 'cuentaa',
-    loadChildren: () => import('./pages/cuentaa/cuentaa.module').then( m => m.CuentaaPageModule)
-  },
-  {
     path: 'wiki',
-    loadChildren: () => import('./pages/wiki/wiki.module').then( m => m.WikiPageModule)
+    loadChildren: () => import('./pages/wiki/wiki.module').then( m => m.WikiPageModule),
+    canActivate: [ingresarGuard]
   },
   {
     path: 'menu',
-    loadChildren: () => import('./pages/menu/menu.module').then( m => m.MenuPageModule)
+    loadChildren: () => import('./pages/menu/menu.module').then( m => m.MenuPageModule),
+    canActivate: [ingresarGuard]
   },
   {
     path: 'calendar',
-    loadChildren: () => import('./pages/calendar/calendar.module').then( m => m.CalendarPageModule)
+    loadChildren: () => import('./pages/calendar/calendar.module').then( m => m.CalendarPageModule),
+    canActivate: [ingresarGuard]
+  },
+  {
+    path: 'cuenta',
+    loadChildren: () => import('./pages/cuenta/cuenta.module').then( m => m.CuentaPageModule),
+    canActivate: [ingresarGuard]
   },
 ];
 
