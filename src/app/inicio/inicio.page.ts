@@ -1,17 +1,14 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss']
 })
-export class InicioPage {
+export class InicioPage implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor() { }
 
-  onLogout() {
-    localStorage.removeItem('ingresado');
-    this.router.navigate(['/login']);
+  ngOnInit() {
   }
 }

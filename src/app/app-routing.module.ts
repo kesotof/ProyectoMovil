@@ -24,6 +24,27 @@ const routes: Routes = [
     loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule),
     canActivate: [ingresarGuard]
   },
+  {
+    path: 'cuenta',
+    loadChildren: () => import('./cuenta/cuenta.module').then( m => m.CuentaPageModule),
+    canActivate: [ingresarGuard]
+  },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'cuentaa',
+    loadChildren: () => import('./pages/cuentaa/cuentaa.module').then( m => m.CuentaaPageModule)
+  },
 ];
 
 @NgModule({
