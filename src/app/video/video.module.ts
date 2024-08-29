@@ -8,7 +8,6 @@ import { VideoPageRoutingModule } from './video-routing.module';
 
 import { VideoPage } from './video.page';
 import { MatCardModule } from '@angular/material/card';
-import { ModallComponent } from './modall/modall.component';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
@@ -20,6 +19,6 @@ import { RouterModule } from '@angular/router';
     VideoPageRoutingModule,
     RouterModule.forChild([{ path: '', component: VideoPage }])
   ],
-  declarations: [VideoPage,ModallComponent,]
+  declarations: [VideoPage,]
 })
 export class VideoPageModule {}

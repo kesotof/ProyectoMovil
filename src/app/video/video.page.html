@@ -3,15 +3,20 @@
     <ion-buttons slot="start">
 		  <ion-back-button defaultHref="/tabs/wiki"></ion-back-button>
 		</ion-buttons>
-    <ion-title class="titulo">Medidas de seguridad</ion-title>
+    <ion-title class="titulo">Medidas de prevensiones</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content class="content">
+  <div class="text">
+  <ion-title>Cuida tu salud</ion-title>
+  <p>Descubre una serie de videos educativos que te enseñaran a como tratar diversas situaciones de emergencia comunes</p>
+  </div>
   <ion-grid>
     <ion-row>
       <ion-col>
         <ion-card>
-          <ion-button fill="clear" (click)="openModal()">
+          <ion-button fill="clear" (click)="openModal1()">
             <div>
               <img src="./../../assets/images/heimlich.jpeg" alt="heimlich" class="ima1" />
               <ion-card-subtitle> Maniobra de Heimlich </ion-card-subtitle>
@@ -21,9 +26,9 @@
       </ion-col>
       <ion-col>
         <ion-card>
-          <ion-button fill="clear">
+          <ion-button fill="clear" (click)="openModal2()">
             <div>
-              <img src="./../../assets/images/Abeja.jpeg" alt="heimlich" class="ima1" />
+              <img src="./../../assets/images/Abeja.jpeg" alt="Abeja" class="ima1" />
               <ion-card-subtitle> Picadura de abeja </ion-card-subtitle>
             </div>
           </ion-button>

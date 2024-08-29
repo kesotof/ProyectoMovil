@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-modall',
-  templateUrl: './modall.component.html',
-  styleUrls: ['./modall.component.scss'],
+  selector: 'app-vid1',
+  templateUrl: './vid1.component.html',
+  styleUrls: ['./vid1.component.scss'],
 })
-export class ModallComponent {
+export class Vid1Component{
+
   constructor(private modalController: ModalController) {}
 
   cerrarModal() {
     this.modalController.dismiss();
   }
+
 }

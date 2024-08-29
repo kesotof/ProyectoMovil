@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Picadura de Abeja</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <div class="video-container">
+      <iframe
+        width="100%"
+        height="200"
+        src="https://www.youtube.com/embed/OPdTuSTqeOk"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <h2>¿Que hacer en caso de una picadura de abeja?</h2>
+  </ion-card>
+  <h1>Sintomas</h1>
+  <ion-list lines="none">
+    <ion-item>
+      <ion-label>Dolor de cabeza</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Dificultad para respirar</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Hinchazón en la cara o labios</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Mareos o náuseas</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <p>Si presentas alguno de estos sintomas sigue los pasos que estan a continuacion.</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <div class="pas">
+    <h1>Paso a paso</h1>
+    <ion-list>
+      <ion-item>
+        <ion-label>
+          1. Mantén la calma
+          <p>La mayoría de las picaduras no son graves y los síntomas suelen ser leves.</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          2. Retira el aguijón (si es necesario)
+          <p>Utiliza algun objeto rígido para raspar el aguijón. Evita usar pinzas,
+            ya que pueden liberar más veneno..</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          3. Limpia la zona
+          <p>Lava el área afectada con agua y jabón suave para reducir el riesgo de infección.</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          4. Aplica una compresa fría
+          <p>Aplica algun paño limpio y humedo en la zona afectada durante 10-15 min. para reducir la hinchazon.</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          5. Aplica una crema o loción
+          <p>Esto ayudara a bajar y aliviar la picazon y la inflamacion.</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          6. Toma un analgésico si es necesario
+          <p>Medicamentos como el IBUPROFENO o el PARACETAMOL podran ayudar a aliviar el dolor</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          7. Vigila tus sintomas
+          <p>Si el dolor aumenta y tienes los sintomas dichos anteriormente acude a algun centro medico,ya que esto podría indicar una reacción alérgica severa. </p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          8. Prevención y cuidados futuros
+          <p>Evita rascar la picadura para evitar infecciones y procura mantener el area limpia.</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
