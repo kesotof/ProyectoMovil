@@ -1,3 +1,4 @@
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -10,10 +11,12 @@
 <ion-content class="content">
   <ion-title class="subt">General</ion-title>
   <ion-button fill="clear" expand="full" class="btn" (click)="onLogout()">
-    <ion-icon name="log-out"></ion-icon>
+    <span class="material-symbols-outlined">
+	logout
+	</span>
     <ion-label class="lab">Cerrar sesion</ion-label>
   </ion-button>
-  <ion-button fill="clear" expand="full" class="btn" (click)="onItemClick()">
+  <ion-button fill="clear" expand="full" class="btn">
     <ion-label>Componente</ion-label>
   </ion-button>
 </ion-content>

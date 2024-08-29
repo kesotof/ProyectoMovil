@@ -15,7 +15,5 @@ export class CuentaPage  {
     localStorage.removeItem('ingresado');
     this.router.navigate(['/login']);
   }
-  onItemClick() {
-    console.log('Item clicked');
-  }
+
 }

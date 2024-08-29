@@ -1,12 +1,34 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>video</ion-title>
+    <ion-buttons slot="start">
+		  <ion-back-button defaultHref="/tabs/wiki"></ion-back-button>
+		</ion-buttons>
+    <ion-title class="titulo">Medidas de seguridad</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content padding>
-  <video id="mainVideo" fullscreen="fullscreen" autoplay="true" controls>
-  </video>
-  <button ion-button (click)="playVideo();"></button>
-
+<ion-content class="content">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-button fill="clear" (click)="openModal()">
+            <div>
+              <img src="./../../assets/images/heimlich.jpeg" alt="heimlich" class="ima1" />
+              <ion-card-subtitle> Maniobra de Heimlich </ion-card-subtitle>
+            </div>
+          </ion-button>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card>
+          <ion-button fill="clear">
+            <div>
+              <img src="./../../assets/images/Abeja.jpeg" alt="heimlich" class="ima1" />
+              <ion-card-subtitle> Picadura de abeja </ion-card-subtitle>
+            </div>
+          </ion-button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

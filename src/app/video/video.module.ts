@@ -7,14 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { VideoPageRoutingModule } from './video-routing.module';
 
 import { VideoPage } from './video.page';
+import { MatCardModule } from '@angular/material/card';
+import { ModallComponent } from './modall/modall.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    VideoPageRoutingModule
+    MatCardModule,
+    VideoPageRoutingModule,
+    RouterModule.forChild([{ path: '', component: VideoPage }])
   ],
-  declarations: [VideoPage]
+  declarations: [VideoPage,ModallComponent,]
 })
 export class VideoPageModule {}
