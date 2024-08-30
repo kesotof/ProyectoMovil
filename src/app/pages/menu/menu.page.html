@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <ion-header>
   <ion-toolbar>
     <ion-title class="titulo">Menu</ion-title>
@@ -19,7 +20,7 @@
     <div>
       <div class="vasos">
         <div class="vaso" *ngFor="let vaso of vasos"></div>
-        <div class="crear-btn" *ngIf="contador <5">
+        <div class="crear-btn" *ngIf="contador < 5">
           <ion-button (click)="crearVaso()">
             <ion-icon name="add"></ion-icon>
           </ion-button>
@@ -32,14 +33,14 @@
     <ion-grid>
       <ion-row>
         <ion-col size="10">
-          <ion-button color="light" expand="full">Botón 1</ion-button>
+          <ion-button color="light" expand="full">1</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
     <ion-grid>
       <ion-row>
         <ion-col size="5">
-          <ion-button color="light" expand="full">Botón 1</ion-button>
+          <ion-button color="light" expand="full"[routerLink]="['/video']" ><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m380-300 280-180-280-180v360ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h640v-480H160v480Zm0 0v-480 480Z"/></svg> Videos</ion-button>
         </ion-col>
         <ion-col size="5">
           <ion-button color="light" expand="full">Botón 2</ion-button>
