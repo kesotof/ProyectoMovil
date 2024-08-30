@@ -10,6 +10,11 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
+        path: '',
+        redirectTo: './../../pages/menu/menu.module',
+        pathMatch: 'full'
+      },
+      {
         path: 'wiki',
         loadChildren: () => import('./../../pages/wiki/wiki.module').then( m => m.WikiPageModule),
         canActivate: [ingresarGuard]
