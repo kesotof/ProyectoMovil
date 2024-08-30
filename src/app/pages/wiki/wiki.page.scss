@@ -13,3 +13,16 @@
 .lab{
   margin-left: 20px;
 }
+
+.medic {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 150px;
+  margin-top: 170px;
+}
+
+.medic ion-button{
+  margin-top: 20px;
+}

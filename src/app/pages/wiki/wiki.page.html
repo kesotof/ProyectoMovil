@@ -6,20 +6,26 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-button fill="clear" expand="full" class="btn">
-      <ion-icon name="medic"></ion-icon>
-      <ion-label>Componente</ion-label>
-    </ion-button>
     <ion-button fill="clear" expand="full" class="btn" [routerLink]="['/video']">
       <span class="material-symbols-outlined" >
         video_library
         </span>
       <ion-label class="lab">Videos</ion-label>
     </ion-button>
+    <ion-button fill="clear" expand="full" class="btn">
+      <span class="material-symbols-outlined">
+        pill
+      </span>
+      <ion-label class="lab">Pastillas</ion-label>
+    </ion-button>
+    <ion-button fill="clear" expand="full" class="btn">
+      <span class="material-symbols-outlined">
+        medication
+        </span>
+      <ion-label class="lab">Jarabe</ion-label>
+    </ion-button>
   </ion-content>
 </ion-menu>
-
-
 <div class="medi" id="main-content">
   <ion-header>
     <ion-toolbar>
@@ -30,3 +36,13 @@
     </ion-toolbar>
   </ion-header>
 </div>
+
+<ion-content>
+  <ion-card class="medic" >
+    <ion-title> informacion de medicamentos </ion-title>
+    <ion-label>Empieza a buscar informacion </ion-label>
+    <ion-label>de medicamentos y remedios</ion-label>
+    <ion-button>Buscar</ion-button>
+  </ion-card>
+</ion-content>
+
