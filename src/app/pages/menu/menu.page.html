@@ -15,7 +15,17 @@
     <div class="video-container">
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAr9Vx-h9mVe8INw6u105oCEJ0vJsWQZUCgg&s" alt="vaso">
     </div>
-    <h2>Vaso (Agregar funcion de vaso)</h2>
+    <h2> Vaso  {{ contador }}</h2>
+    <div>
+      <div class="vasos">
+        <div class="vaso" *ngFor="let vaso of vasos"></div>
+        <div class="crear-btn" *ngIf="contador <5">
+          <ion-button (click)="crearVaso()">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </div>
   </ion-card>
   <div class="cont">
     <h3>Contenido</h3>

@@ -16,4 +16,14 @@ export class MenuPage implements OnInit {
   ngOnInit() {
   }
 
+  contador: number = 0;
+  vasos: number[] = [];
+
+  crearVaso() {
+    if (this.contador < 5) {
+      this.contador += 1;
+      this.vasos.push(this.contador);
+    }
+  }
+
 }

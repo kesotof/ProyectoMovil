@@ -1,10 +1,24 @@
 .titulo{
   text-align: center;
 }
+ion-card {
+  padding: 16px;
+}
+
+.vasos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vaso {
+  width: 30px;
+  height: 30px;
+  background-color: lightblue;
+}
 
 .cont{
-  margin-top: 50px;
-  margin: 0 auto;
+  margin-top: 30px;
 }
 
 .cont h3{
