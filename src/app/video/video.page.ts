@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Vid1Component } from './../component/vid1/vid1.component';
 import { Vid2Component } from './../component/vid2/vid2.component';

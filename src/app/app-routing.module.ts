@@ -31,8 +31,15 @@ const routes: Routes = [
   },
   {
     path: 'video',
-    loadChildren: () => import('./video/video.module').then( m => m.VideoPageModule)
-  }
+    loadChildren: () => import('./video/video.module').then( m => m.VideoPageModule),
+    canActivate: [ingresarGuard]
+  },
+  {
+    path: 'calendario',
+    loadChildren: () => import('./calendario/calendario.module').then( m => m.CalendarioPageModule),
+    canActivate: [ingresarGuard]
+  },
+
 
 ];
 

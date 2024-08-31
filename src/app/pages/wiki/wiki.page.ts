@@ -11,5 +11,4 @@ export class WikiPage implements OnInit {
 
   ngOnInit() {
   }
-
 }
