@@ -26,4 +26,5 @@ export class MenuPage implements OnInit {
     }
   }
 
+  alertButtons = ['Cerrar'];
 }

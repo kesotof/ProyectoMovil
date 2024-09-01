@@ -5,12 +5,27 @@ ion-card {
   padding: 16px;
 }
 
+.bntn{
+  color: white;
+  margin-left: 250px;
+}
+
+h2{
+  color: white;
+  margin-left: 25px;
+}
+
+h4{
+  margin-left: 100px;
+}
+
 .vasos {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
+  margin-left: 40px;
+  margin-top: 20px;
 }
-
 
 .cont{
   margin-top: 30px;

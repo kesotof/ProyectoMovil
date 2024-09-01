@@ -13,13 +13,27 @@
 <ion-content>
   <h3>Beber agua</h3>
   <ion-card>
-    <h2> Vaso  {{ contador }}</h2>
+    <ion-button class="bntn" fill="clear" id="present-alert"><span class="material-symbols-outlined">
+      info</span>
+    </ion-button>
+    <ion-alert
+      trigger="present-alert"
+      header="Beber agua"
+      message="Beber suficiente agua cada dia es importante por muchas razones. Una buena hidratacion tambien puede mejorar la calidad del sueño, las capacidades cognitivas y el estado de ánimo."
+      [buttons]="alertButtons"
+    ></ion-alert>
+    <h2>Objetivo diario: 5 Vasos</h2>
+    <h4> Vasos  {{ contador }}</h4>
     <div>
       <div class="vasos">
-        <div class="vaso" *ngFor="let vaso of vasos"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M444-600q-55 0-108 15.5T238-538l42 378h400l44-400h-28q-38 0-69-5.5T542-587q-23-7-48-10t-50-3Zm-216-25q51-27 105.5-41T445-680q30 0 59.5 4t58.5 12q50 14 76.5 19t56.5 5h37l17-160H210l18 175Zm51 545q-31 0-53.5-20T200-151l-80-729h720l-80 729q-3 31-25.5 51T681-80H279Zm165-80h236-400 164Z"/></svg></div>
+        <div class="vaso" *ngFor="let vaso of vasos"><span class="material-symbols-outlined">
+          water_full
+          </span></div>
         <div class="crear-btn" *ngIf="contador < 5">
           <ion-button fill="clear" (click)="crearVaso()">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-80q-137 0-228.5-94T160-408q0-100 79.5-217.5T480-880q161 137 240.5 254.5T800-408q0 140-91.5 234T480-80Zm0-80q104 0 172-70.5T720-408q0-73-60.5-165T480-774Q361-665 300.5-573T240-408q0 107 68 177.5T480-160Zm-120-80h240v-80H360v80Zm80-120h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80Zm40-120Z"/></svg>
+            <span class="material-symbols-outlined">
+              bloodtype
+              </span>
           </ion-button>
         </div>
       </div>
@@ -56,7 +70,7 @@
             </span> Sintomas</ion-button>
         </ion-col>
         <ion-col size="5">
-          <ion-button color="light" expand="full" [routerLink]="['/calendario']"><span class="material-symbols-outlined">
+          <ion-button color="light" expand="full" [disabled]="true"><span class="material-symbols-outlined">
             calendar_month
             </span>Horario</ion-button>
         </ion-col>
