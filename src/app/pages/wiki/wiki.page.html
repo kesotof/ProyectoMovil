@@ -14,15 +14,9 @@
     </ion-button>
     <ion-button fill="clear" expand="full" class="btn">
       <span class="material-symbols-outlined">
-        pill
-      </span>
-      <ion-label class="lab">Pastillas</ion-label>
-    </ion-button>
-    <ion-button fill="clear" expand="full" class="btn">
-      <span class="material-symbols-outlined">
-        medication
+        conditions
         </span>
-      <ion-label class="lab">Jarabe</ion-label>
+      <ion-label class="lab">Sintomas</ion-label>
     </ion-button>
   </ion-content>
 </ion-menu>
@@ -42,7 +36,7 @@
     <ion-title> Informacion de medicamentos </ion-title>
     <ion-label>Empieza a buscar informacion </ion-label>
     <ion-label>de medicamentos y remedios</ion-label>
-    <ion-button>Buscar</ion-button>
+    <ion-button [routerLink]="['/buscar']">Buscar</ion-button>
   </ion-card>
 </ion-content>
 
