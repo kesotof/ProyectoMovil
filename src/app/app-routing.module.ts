@@ -35,11 +35,6 @@ const routes: Routes = [
     canActivate: [ingresarGuard]
   },
   {
-    path: 'calendario',
-    loadChildren: () => import('./calendario/calendario.module').then( m => m.CalendarioPageModule),
-    canActivate: [ingresarGuard]
-  },
-  {
     path: 'buscar',
     loadChildren: () => import('./buscar/buscar.module').then( m => m.BuscarPageModule)
   },
