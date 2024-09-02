@@ -22,20 +22,20 @@
       message="Beber suficiente agua cada dia es importante por muchas razones. Una buena hidratacion tambien puede mejorar la calidad del sueño, las capacidades cognitivas y el estado de ánimo."
       [buttons]="alertButtons"
     ></ion-alert>
-    <h2>Objetivo diario: 5 Vasos</h2>
-    <h4> Vasos  {{ contador }}</h4>
-    <div>
-      <div class="vasos">
-        <div class="vaso" *ngFor="let vaso of vasos"><span class="material-symbols-outlined">
+    <h2>Objetivo diario: 1 Litro</h2>
+    <h4 *ngIf="cantidad">{{cantidad}}</h4>
+    <div class="vasos">
+      <div class="vaso" *ngFor="let vaso of vasos">
+        <span class="material-symbols-outlined">
           water_full
-          </span></div>
-        <div class="crear-btn" *ngIf="contador < 5">
-          <ion-button fill="clear" (click)="crearVaso()">
-            <span class="material-symbols-outlined">
-              bloodtype
-              </span>
-          </ion-button>
-        </div>
+        </span>
+      </div>
+      <div class="crear-btn" *ngIf="contador < 1000">
+        <ion-button fill="clear" (click)="crearVaso()">
+          <span class="material-symbols-outlined">
+            bloodtype
+          </span>
+        </ion-button>
       </div>
     </div>
   </ion-card>

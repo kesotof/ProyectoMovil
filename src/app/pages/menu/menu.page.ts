@@ -18,13 +18,15 @@ export class MenuPage implements OnInit {
 
   contador: number = 0;
   vasos: number[] = [];
+  cantidad: string = '';
 
   crearVaso() {
-    if (this.contador < 5) {
-      this.contador += 1;
-      this.vasos.push(this.contador);
-    }
-  }
+  if (this.contador < 1000) {
+      this.contador += 200;
+      this.vasos.push(200);
+      this.cantidad = this.contador === 1000 ? '1 Ltr' : `${this.contador} ml`;
+    }
+   }
 
   alertButtons = ['Cerrar'];
 }
