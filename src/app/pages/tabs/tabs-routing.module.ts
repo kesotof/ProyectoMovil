@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
-import { ingresarGuard } from 'src/app/ingresar.guard';
 
 const routes: Routes = [
   {
@@ -16,18 +15,15 @@ const routes: Routes = [
       },
       {
         path: 'wiki',
-        loadChildren: () => import('./../../pages/wiki/wiki.module').then( m => m.WikiPageModule),
-        canActivate: [ingresarGuard]
+        loadChildren: () => import('./../../pages/wiki/wiki.module').then( m => m.WikiPageModule)
       },
       {
         path: 'menu',
-        loadChildren: () => import('./../../pages/menu/menu.module').then( m => m.MenuPageModule),
-        canActivate: [ingresarGuard]
+        loadChildren: () => import('./../../pages/menu/menu.module').then( m => m.MenuPageModule)
       },
       {
         path: 'calendar',
-        loadChildren: () => import('./../../pages/calendar/calendar.module').then( m => m.CalendarPageModule),
-        canActivate: [ingresarGuard]
+        loadChildren: () => import('./../../pages/calendar/calendar.module').then( m => m.CalendarPageModule)
       },
     ]
   }

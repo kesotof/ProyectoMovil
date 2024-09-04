@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,FormControl,Validators,FormBuilder} from '@angular/forms';
-import { AlertController, NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { SessionManager } from '../../managers/SessionManager';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registro',
@@ -9,41 +10,49 @@ import { AlertController, NavController } from '@ionic/angular';
 })
 export class RegistroPage implements OnInit {
 
-  formularioRegistro: FormGroup;
+  protected username: string = "";
+  protected password1: string = "";
+  protected password2: string = "";
 
-  constructor(public fb: FormBuilder,
-    public alertController: AlertController,
-    public navCtrl: NavController) {
-    this.formularioRegistro = this.fb.group({
-      'nombre': new FormControl("",Validators.required),
-      'password': new FormControl("",Validators.required),
-      'confirmacionPassword': new FormControl("",Validators.required)
-    })
+  constructor(
+    private router : Router,
+    private sessionManager : SessionManager,
+    private alertController : AlertController,
+  ) { }
+
+  showAlert(header:string, message:string){
+    const alert = this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['Aceptar'],
+    }).then(alert => alert.present());
+  }
+
+  OnRegisterButtonPressed(){
+    // validate non-empty fields
+    if(this.username === "" || this.password1 === "" || this.password2 === ""){
+      this.showAlert("Error", "Por favor llene todos los campos");
+      return;
+    }
+
+    // validate passwords
+    if(this.password1 != this.password2){
+      this.showAlert("Error", "Las contraseñas no coinciden");
+      return;
+    }
+    this.sessionManager.register(this.username, this.password1);
+    this.resetForm();
+    this.showAlert("Registro exitoso", "Usuario registrado exitosamente");
+    this.router.navigate(['/login']);
+  }
+
+  resetForm(){
+    this.username = "";
+    this.password1 = "";
+    this.password2 = "";
   }
 
   ngOnInit() {
   }
 
-  async guardar(){
-    var f = this.formularioRegistro.value;
-
-    if(this.formularioRegistro.invalid){
-      const alert = await this.alertController.create({
-        header: 'Datos incompletos',
-        message: 'Tienes que rellenar todos los datos',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
-      return;
-    }
-    var usuario = {
-      nombre: f.nombre,
-      password: f.password
-    }
-
-    localStorage.setItem("usuario", JSON.stringify(usuario));
-    console.log("El usuario ha sido guardado");
-    localStorage.setItem("ingresando","true");
-    this.navCtrl.navigateRoot("login");
-  }
 }

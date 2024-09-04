@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,FormControl,Validators,FormBuilder } from '@angular/forms';
-import { AlertController, NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { SessionManager } from 'src/managers/SessionManager';
 
 
 @Component({
@@ -10,47 +10,29 @@ import { AlertController, NavController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
-  formularioLogin: FormGroup;
+  constructor(
+    private router : Router,
+    private sessionManager : SessionManager
+  ) { }
 
-  constructor(public fb: FormBuilder,
-    public alertController:AlertController,
-    public navCtrl: NavController) {
+  protected username: string = '';
+  protected password: string = '';
 
-    this.formularioLogin = fb.group({
-      'nombre': new FormControl("",Validators.required),
-      'password': new FormControl("",Validators.required),
-    })
-
+  onLoginButtonClick() {
+    if (this.sessionManager.login(this.username, this.password)) {
+      this.router.navigate(['/tabs/menu']);
+    } else {
+      this.openAlert('Login failed', 'Invalid username or password');
+    }
   }
+  onRegisterButtonClick() {
+    this.router.navigate(['/registro']);
+  }
+
+  openAlert(title: string, message: string) {
+    alert(title + ': ' + message);
+  }
+
   ngOnInit() {
-  }
-
-  async ingresar() {
-    var f = this.formularioLogin.value;
-    if (!f.nombre || !f.password) {
-      const alert = await this.alertController.create({
-        header: 'Datos incompletos',
-        message: 'Debes rellenar los campos',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
-      return;
-    }
-    var usuarioString = localStorage.getItem('usuario');
-    if (usuarioString !== null) {
-      var usuario = JSON.parse(usuarioString);
-      if (usuario.nombre == f.nombre && usuario.password == f.password) {
-        console.log('Ingresado');
-        localStorage.setItem('ingresado', 'true');
-        this.navCtrl.navigateRoot("tabs/menu");
-      } else {
-        const alert = await this.alertController.create({
-          header: 'Datos incorrectos',
-          message: 'No existe ninguna cuenta con estos datos',
-          buttons: ['Volver a intentar'],
-        });
-        await alert.present();
-      }
-    }
   }
 }
