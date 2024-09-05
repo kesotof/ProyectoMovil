@@ -2,15 +2,16 @@
   <ion-toolbar>
     <ion-buttons slot="start">
 		  <ion-back-button defaultHref="/tabs/wiki"></ion-back-button>
-      Buscar Medicamentos
+      Sintomas
 		</ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)"></ion-searchbar>
+
   <ion-list>
-    <ion-item *ngFor="let result of results" (click)="goMedication(result)">
+    <ion-item *ngFor="let result of results">
       <ion-button fill="clear" expand="full" class="btn"> {{ result }}</ion-button>
     </ion-item>
   </ion-list>

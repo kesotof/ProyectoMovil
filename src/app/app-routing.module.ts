@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ParacetamolComponent } from './componetW/paracetamol/paracetamol.component';
 
 const routes: Routes = [
   {
@@ -30,13 +31,16 @@ const routes: Routes = [
   {
     path: 'buscar',
     loadChildren: () => import('./buscar/buscar.module').then( m => m.BuscarPageModule)
-  },  {
+  },
+  {
     path: 'splash',
     loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
   },
-
-
-
+  {
+    path: 'sintomas',
+    loadChildren: () => import('./sintomas/sintomas.module').then( m => m.SintomasPageModule)
+  },
+  { path: 'paracetamol', component: ParacetamolComponent },
 
 ];
 
