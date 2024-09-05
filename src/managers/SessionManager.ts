@@ -4,61 +4,74 @@ import { Injectable } from "@angular/core";
     providedIn: 'root'
 })
 export class SessionManager {
-    static register(usuario: string, contrasenna: string) {
-      throw new Error('Method not implemented.');
-    }
+  private userCredentials = [
+    {
+        username: "user",
+        password: "pass",
+        email: "user@test.com"
+    },
+];
 
-    private userCredentials = [
-        ["admin", "admin"],
-        ["user", "password"],
-    ];
+private activeUser: { username: string, password: string, email: string } | null;
+private isUserActive: boolean;
 
+constructor() {
+    this.isUserActive = false;
+    this.activeUser = null;
+}
 
-
-    private isUserActive: boolean;
-
-    constructor() {
-        this.isUserActive = false;
-    }
-
-    public login(username: string, password: string): boolean {
-        // check if username and password are correct
-        for (const user of this.userCredentials) {
-            if (user[0] === username && user[1] === password) {
-                console.log("from: "+this.isUserActive);
-
-                this.isUserActive = true;
-                console.log("to: "+this.isUserActive);
-                return true;
-            }
+public login(username: string, password: string): boolean {
+    // check if username and password are correct
+    for (const user of this.userCredentials) {
+        if (user.username === username && user.password === password) {
+            this.activeUser = user;
+            return true;
         }
-        return false;
     }
+    return false;
+}
 
-    logout(): boolean {
-        this.isUserActive = false;
-        return true;
-    }
+public logout(): boolean {
+    this.activeUser = null;
+    return true;
+}
 
-    public register(username: string, password: string): boolean {
-        // check if username is already taken
-        console.log("username: "+username);
-        console.log("passw: "+password);
+public register(username: string, password: string, email: string): boolean {
+    // check if username is already taken
+    console.log("username: "+username);
+    console.log("email: "+email);
+    console.log("passw: "+password);
 
-        // check if username is already taken
-        for (const user of this.userCredentials) {
-            if (user[0] === username) {
-                return false;
-            }
+    for (const user of this.userCredentials) {
+        if (user.username === username) {
+            return false;
         }
-        // add new user
-        this.userCredentials.push([username, password]);
-        return true;
     }
 
-    isUserLoggedIn(): boolean {
-        console.log("isUserActive: "+this.isUserActive);
-        return this.isUserActive;
+    // add new user
+    let newUser = {
+        username: username,
+        password: password,
+        email: email
     }
+    this.userCredentials.push(newUser);
+    return true;
+}
+
+getUserData(){
+    if (!this.activeUser) {
+        return null;
+    }
+
+    return {
+        email: this.activeUser.email,
+        username: this.activeUser.username
+    }
+}
+
+isUserLoggedIn(): boolean {
+    console.log("isUserActive: "+this.isUserActive);
+    return this.isUserActive;
+}
 
 }

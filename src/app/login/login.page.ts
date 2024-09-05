@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionManager } from 'src/managers/SessionManager';
+import { AlertManager } from 'src/managers/AlertManager';
 
 
 @Component({
@@ -12,7 +13,8 @@ export class LoginPage implements OnInit {
 
   constructor(
     private router : Router,
-    private sessionManager : SessionManager
+    private sessionManager : SessionManager,
+    private alertManager : AlertManager,
   ) { }
 
   protected username: string = '';
@@ -20,9 +22,10 @@ export class LoginPage implements OnInit {
 
   onLoginButtonClick() {
     if (this.sessionManager.login(this.username, this.password)) {
-      this.router.navigate(['/tabs/menu']);
+      let userData = this.sessionManager.getUserData();
+      this.router.navigate(['/splash'], {queryParams: userData});
     } else {
-      this.openAlert('Login failed', 'Invalid username or password');
+      this.alertManager.showAlert('Error', 'Usuario o contraseña incorrectos');
     }
   }
   onRegisterButtonClick() {
