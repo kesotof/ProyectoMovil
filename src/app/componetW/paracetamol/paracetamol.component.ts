@@ -11,4 +11,9 @@ export class ParacetamolComponent {
 
   ngOnInit() {
   }
+  expandedSection: string | null = null;
+
+  toggleSection(section: string) {
+    this.expandedSection = this.expandedSection === section ? null : section;
+  }
 }
