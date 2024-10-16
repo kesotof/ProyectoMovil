@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionManager } from 'src/managers/SessionManager';
 import { AlertManager } from 'src/managers/AlertManager';
+import { StorageProvider } from 'src/managers/StorageProvider';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class LoginPage implements OnInit {
     private router : Router,
     private sessionManager : SessionManager,
     private alertManager : AlertManager,
+    private storageProvider : StorageProvider
   ) { }
 
   protected username: string = '';
