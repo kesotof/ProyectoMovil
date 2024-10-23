@@ -7,7 +7,15 @@ const routes: Routes = [
   {
     path: '',
     component: SintomasPage
+  },  {
+    path: 'listasin',
+    loadChildren: () => import('./listasin/listasin.module').then( m => m.ListasinPageModule)
+  },
+  {
+    path: 'detallesin',
+    loadChildren: () => import('./detallesin/detallesin.module').then( m => m.DetallesinPageModule)
   }
+
 ];
 
 @NgModule({

@@ -13,6 +13,7 @@ import { Vid2Component } from './component/vid2/vid2.component';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Storage } from '@ionic/storage-angular';
 import { MedicinasService } from 'src/service/medicinas.service';
+import { SintomasService } from 'src/service/sintomas.service';
 
 @NgModule({
   declarations: [AppComponent, ParacetamolComponent, Vid1Component, Vid2Component],
@@ -26,7 +27,7 @@ import { MedicinasService } from 'src/service/medicinas.service';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Storage,MedicinasService
+    Storage,MedicinasService,SintomasService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
