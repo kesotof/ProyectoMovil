@@ -37,8 +37,12 @@ const routes: Routes = [
     loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
   },
   {
-    path: 'sintomas',
-    loadChildren: () => import('./sintomas/sintomas.module').then( m => m.SintomasPageModule)
+    path: 'sintomas/listasin',
+    loadChildren: () => import('./sintomas/listasin/listasin.module').then(m => m.ListasinPageModule)
+  },
+  {
+    path: 'sintomas/detallesin/:id',
+    loadChildren: () => import('./sintomas/listasin/listasin-routing.module').then(m => m.ListasinPageRoutingModule)
   },
   { path: 'paracetamol', component: ParacetamolComponent },
   {

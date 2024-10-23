@@ -20,7 +20,7 @@ export class ListasinPage implements OnInit {
   
   verDetalle(id: string) {
     if (id) {
-      this.router.navigate(['/sintoma-detalle', id]);
+      this.router.navigate(['sintomas/sintoma-detalle', id]);
     } else {
       console.error('ID de sintoma no definido');
     }
