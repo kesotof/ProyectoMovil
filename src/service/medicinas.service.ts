@@ -35,7 +35,7 @@ export class MedicinasService {
       case 'pastilla':
         return 'assets/icon/pastilla.png';
       case 'jarabe':
-        return 'assets/images/jarabe.png';
+        return 'assets/icon/jarabe.png';
       default:
         return 'assets/images/default.png';
     }
