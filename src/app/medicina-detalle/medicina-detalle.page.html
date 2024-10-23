@@ -1,18 +1,66 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/medicinas"></ion-back-button>
+    </ion-buttons>
     <ion-title>{{ medicina?.nombre }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card *ngIf="medicina">
-    <img [src]="medicina.imagen" alt="{{ medicina.nombre }}"/>
-    <ion-card-header>
-      <ion-card-title>{{ medicina.nombre }}</ion-card-title>
-    </ion-card-header>
+    <img [src]="medicina?.imagen" alt="{{ medicina?.nombre }}"/>
     <ion-card-content>
-      <p>{{ medicina.descripcion }}</p>
-      <!-- Agrega más detalles aquí -->
+      <div class="icons">
+        <div class="icon">
+          <div class="circle">
+            <img [src]="medicina?.tipoImagen" alt="{{ medicina?.tipo }}"/>
+          </div>
+          <p>{{ medicina?.tipo }}</p>
+        </div>
+        <div class="icon">
+          <div class="circle">
+            <img src="./../../../assets/icon/reloj.png" alt="reloj">
+          </div>
+          <p>{{ medicina?.hora }}</p>
+        </div>
+      </div>
+      <ion-card>
+        <ion-item lines="none" (click)="toggleSection('para_que_sirve')">
+          <ion-label>Para qué sirve</ion-label>
+          <ion-icon slot="end" name="add" color="primary"></ion-icon>
+        </ion-item>
+        <div *ngIf="expandedSection === 'para_que_sirve'" class="tex">
+          <p>{{ medicina?.para_que_sirve }}</p>
+        </div>
+      </ion-card>
+      <ion-card>
+        <ion-item lines="none" (click)="toggleSection('como_usar')">
+          <ion-label>Cómo usar</ion-label>
+          <ion-icon slot="end" name="add" color="primary"></ion-icon>
+        </ion-item>
+        <div *ngIf="expandedSection === 'como_usar'" class="tex">
+          <p>{{ medicina?.como_usar }}</p>
+        </div>
+      </ion-card>
+      <ion-card>
+        <ion-item lines="none" (click)="toggleSection('quien_no_debe_consumir')">
+          <ion-label>Quién no debe consumir</ion-label>
+          <ion-icon slot="end" name="add" color="primary"></ion-icon>
+        </ion-item>
+        <div *ngIf="expandedSection === 'quien_no_debe_consumir'" class="tex">
+          <p>{{ medicina?.quien_no_debe_consumir }}</p>
+        </div>
+      </ion-card>
+      <ion-card>
+        <ion-item lines="none" (click)="toggleSection('descripcion')">
+          <ion-label>Descripción</ion-label>
+          <ion-icon slot="end" name="add" color="primary"></ion-icon>
+        </ion-item>
+        <div *ngIf="expandedSection === 'descripcion'" class="tex">
+          <p>{{ medicina?.descripcion }}</p>
+        </div>
+      </ion-card>
     </ion-card-content>
   </ion-card>
 </ion-content>

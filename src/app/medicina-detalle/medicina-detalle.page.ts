@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { MedicinasService } from 'src/service/medicinas.service'; // Asegúrate de que la ruta sea correcta
+import { ActivatedRoute, Router } from '@angular/router';
+import { MedicinasService } from 'src/service/medicinas.service';
 
 @Component({
   selector: 'app-medicina-detalle',
@@ -9,8 +9,13 @@ import { MedicinasService } from 'src/service/medicinas.service'; // Asegúrate 
 })
 export class MedicinaDetallePage implements OnInit {
   medicina: any;
+  expandedSection: string | null = null;
 
-  constructor(private route: ActivatedRoute, private medicinasService: MedicinasService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private medicinasService: MedicinasService
+  ) {}
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -21,5 +26,9 @@ export class MedicinaDetallePage implements OnInit {
     } else {
       console.error('No se pudo obtener el ID de la ruta');
     }
+  }
+
+  toggleSection(section: string) {
+    this.expandedSection = this.expandedSection === section ? null : section;
   }
 }
