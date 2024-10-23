@@ -41,6 +41,14 @@ const routes: Routes = [
     loadChildren: () => import('./sintomas/sintomas.module').then( m => m.SintomasPageModule)
   },
   { path: 'paracetamol', component: ParacetamolComponent },
+  {
+    path: 'medicinas',
+    loadChildren: () => import('./medicinas/medicinas.module').then( m => m.MedicinasPageModule)
+  },
+  {
+    path: 'medicina-detalle/:id',
+    loadChildren: () => import('./medicina-detalle/medicina-detalle.module').then(m => m.MedicinaDetallePageModule)
+  },
 
 ];
 

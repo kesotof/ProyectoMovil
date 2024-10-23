@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Medicinas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let medicina of medicinas" (click)="verDetalle(medicina.id)">
+      <ion-avatar slot="start">
+        <img [src]="medicina.imagen" alt="{{ medicina.nombre }}"/>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ medicina.nombre }}</h2>
+        <p>{{ medicina.descripcion }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

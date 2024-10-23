@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ medicina?.nombre }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="medicina">
+    <img [src]="medicina.imagen" alt="{{ medicina.nombre }}"/>
+    <ion-card-header>
+      <ion-card-title>{{ medicina.nombre }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ medicina.descripcion }}</p>
+      <!-- Agrega más detalles aquí -->
+    </ion-card-content>
+  </ion-card>
+</ion-content>
