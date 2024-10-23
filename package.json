@@ -32,9 +32,11 @@
     "@capacitor/status-bar": "6.0.1",
     "@ionic/angular": "^8.0.0",
     "@ionic/storage": "^4.0.0",
+    "@ionic/storage-angular": "^4.0.0",
     "cordova-plugin-youtube-video-player": "^2.4.0",
-    "firebase": "^10.13.0",
+    "firebase": "^10.14.1",
     "ionicons": "^7.0.0",
+    "PruebaPrimeraApp": "file:",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
