@@ -24,12 +24,15 @@ export class LoginPage implements OnInit {
 
   onLoginButtonClick() {
     if (this.sessionManager.login(this.username, this.password)) {
-      let userData = this.sessionManager.getUserData();
-      this.router.navigate(['/splash'], {queryParams: userData});
+        let userData = this.sessionManager.getUserData();
+        this.storageProvider.set('userData', userData);
+        this.storageProvider.set('username', this.username);
+        console.log('Nombre de usuario almacenado:', this.username);
+        this.router.navigate(['/splash'], { queryParams: userData });
     } else {
-      this.alertManager.showAlert('Error', 'Usuario o contraseña incorrectos');
+        this.alertManager.showAlert('Error', 'Usuario o contraseña incorrectos');
     }
-  }
+}
   onRegisterButtonClick() {
     this.router.navigate(['/registro']);
   }

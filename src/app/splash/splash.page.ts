@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionManager } from 'src/managers/SessionManager';
+import { StorageProvider } from 'src/managers/StorageProvider';
 
 @Component({
   selector: 'app-splash',
@@ -9,14 +9,20 @@ import { SessionManager } from 'src/managers/SessionManager';
 })
 export class SplashPage implements OnInit {
 
-  constructor( private router: Router,private sessionManager: SessionManager ) { }
+  name: string = '';
+
+  constructor(private router: Router, private storageProvider: StorageProvider) { }
 
   ngOnInit() {
+    this.loadData();
     setTimeout(() => {
       this.router.navigate(['/tabs/menu']);
-  }, 3000);
+    }, 3000);
   }
 
-  username: string = this.sessionManager.getUserData()?.username || 'Usuario';
-
+  async loadData() {
+    const username = await this.storageProvider.get('username');
+    console.log('Nombre de usuario recuperado:', username);
+    this.name = username;
+  }
 }
