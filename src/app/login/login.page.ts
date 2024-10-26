@@ -4,43 +4,55 @@ import { SessionManager } from 'src/managers/SessionManager';
 import { AlertManager } from 'src/managers/AlertManager';
 import { StorageProvider } from 'src/managers/StorageProvider';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  username: string = '';
+  password: string = '';
 
   constructor(
-    private router : Router,
-    private sessionManager : SessionManager,
-    private alertManager : AlertManager,
-    private storageProvider : StorageProvider
+    private router: Router,
+    private sessionManager: SessionManager,
+    private alertManager: AlertManager,
+    private storageProvider: StorageProvider
   ) { }
 
-  protected username: string = '';
-  protected password: string = '';
+  ngOnInit() {
+    this.resetFields();
+  }
 
-  onLoginButtonClick() {
-    if (this.sessionManager.login(this.username, this.password)) {
-        let userData = this.sessionManager.getUserData();
-        this.storageProvider.set('userData', userData);
-        this.storageProvider.set('username', this.username);
-        console.log('Nombre de usuario almacenado:', this.username);
-        this.router.navigate(['/splash'], { queryParams: userData });
-    } else {
-        this.alertManager.showAlert('Error', 'Usuario o contraseña incorrectos');
+  ionViewWillEnter() {
+    this.resetFields();
+  }
+
+  resetFields() {
+    this.username = '';
+    this.password = '';
+  }
+
+  async onLoginButtonClick() {
+    try {
+      const userCredential = await this.sessionManager.loginWithUsername(this.username, this.password);
+      const user = userCredential.user;
+      if (user) {
+        console.log('Usuario autenticado:', user);
+        await this.storageProvider.set('username', this.username);
+        this.router.navigate(['/splash']);
+      }
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      this.alertManager.showAlert('Error', 'Error al iniciar sesión. Por favor, inténtelo de nuevo.');
     }
-}
+  }
+
   onRegisterButtonClick() {
     this.router.navigate(['/registro']);
   }
 
   openAlert(title: string, message: string) {
-    alert(title + ': ' + message);
-  }
-
-  ngOnInit() {
+    this.alertManager.showAlert(title, message);
   }
 }

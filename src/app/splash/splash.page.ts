@@ -8,8 +8,7 @@ import { StorageProvider } from 'src/managers/StorageProvider';
   styleUrls: ['./splash.page.scss'],
 })
 export class SplashPage implements OnInit {
-
-  name: string = '';
+  username: string = '';
 
   constructor(private router: Router, private storageProvider: StorageProvider) { }
 
@@ -23,6 +22,6 @@ export class SplashPage implements OnInit {
   async loadData() {
     const username = await this.storageProvider.get('username');
     console.log('Nombre de usuario recuperado:', username);
-    this.name = username;
+    this.username = username;
   }
 }
