@@ -1,77 +1,44 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class SessionManager {
-  private userCredentials = [
-    {
-        username: "user",
-        password: "pass",
-        email: "user@test.com"
-    },
-];
+  constructor(public fireAuth: AngularFireAuth, private firestore: AngularFirestore) { }
 
-private activeUser: { username: string, password: string, email: string } | null;
-private isUserActive: boolean;
+  async signOut() {
+    return await this.fireAuth.signOut();
+  }
 
-constructor() {
-    this.isUserActive = false;
-    this.activeUser = null;
-}
-
-public login(username: string, password: string): boolean {
-    // check if username and password are correct
-    for (const user of this.userCredentials) {
-        if (user.username === username && user.password === password) {
-            this.activeUser = user;
-            return true;
-        }
-    }
-    return false;
-}
-
-public logout(): boolean {
-    this.activeUser = null;
-    return true;
-}
-
-public register(username: string, password: string, email: string): boolean {
-    // check if username is already taken
-    console.log("username: "+username);
-    console.log("email: "+email);
-    console.log("passw: "+password);
-
-    for (const user of this.userCredentials) {
-        if (user.username === username) {
-            return false;
-        }
-    }
-
-    // add new user
-    let newUser = {
+  async registerUserWith(email: string, password: string, username: string): Promise<any> {
+    const userCredential = await this.fireAuth.createUserWithEmailAndPassword(email, password);
+    const user = userCredential.user;
+    if (user) {
+      await this.firestore.collection('users').doc(user.uid).set({
         username: username,
-        password: password,
-        email: email
+        email: email,
+      });
     }
-    this.userCredentials.push(newUser);
-    return true;
-}
+    return userCredential;
+  }
 
-getUserData(){
-    if (!this.activeUser) {
-        return null;
+  async loginWithUsername(username: string, password: string): Promise<any> {
+    const userDoc = await this.firestore.collection('users', ref => ref.where('username', '==', username)).get().toPromise();
+    if (userDoc && !userDoc.empty) {
+      const userEmail = (userDoc.docs[0].data() as { email: string }).email;
+      return this.fireAuth.signInWithEmailAndPassword(userEmail, password);
+    } else {
+      throw new Error('Usuario no encontrado');
     }
+  }
 
-    return {
-        email: this.activeUser.email,
-        username: this.activeUser.username
-    }
-}
+  async resetPassword(email: string) {
+    return await this.fireAuth.sendPasswordResetEmail(email);
+  }
 
-isUserLoggedIn(): boolean {
-    console.log("isUserActive: "+this.isUserActive);
-    return this.isUserActive;
-}
-
+  async getProfile() {
+    return await this.fireAuth.currentUser;
+  }
 }
