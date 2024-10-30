@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { getDatabase, ref, set } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SessionManager {
-  constructor(public fireAuth: AngularFireAuth, private firestore: AngularFirestore) { }
+  constructor(public fireAuth: AngularFireAuth) { }
 
   async signOut() {
     return await this.fireAuth.signOut();
@@ -16,7 +16,9 @@ export class SessionManager {
     const userCredential = await this.fireAuth.createUserWithEmailAndPassword(email, password);
     const user = userCredential.user;
     if (user) {
-      await this.firestore.collection('users').doc(user.uid).set({
+      const db = getDatabase();
+      const dbRef = ref(db, 'users/' + user.uid);
+      await set(dbRef, {
         username: username,
         email: email,
       });
@@ -25,13 +27,7 @@ export class SessionManager {
   }
 
   async loginWithUsername(username: string, password: string): Promise<any> {
-    const userDoc = await this.firestore.collection('users', ref => ref.where('username', '==', username)).get().toPromise();
-    if (userDoc && !userDoc.empty) {
-      const userEmail = (userDoc.docs[0].data() as { email: string }).email;
-      return this.fireAuth.signInWithEmailAndPassword(userEmail, password);
-    } else {
-      throw new Error('Usuario no encontrado');
-    }
+    throw new Error('Método no implementado para Realtime Database');
   }
 
   async resetPassword(email: string) {

@@ -9,7 +9,7 @@ export class AlertManager {
     }
 
     public showAlert(header:string, message:string){
-        const alert = this.alertController.create({
+        this.alertController.create({
           header: header,
           message: message,
           buttons: ['Aceptar'],
