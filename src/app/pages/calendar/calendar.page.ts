@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { FirestoreService } from 'src/service/firestore.service';
 
 @Component({
   selector: 'app-calendar',
@@ -8,23 +7,37 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./calendar.page.scss'],
 })
 export class CalendarPage implements OnInit {
+  horarios: any[] = [];
+  groupedHorarios: { [key: string]: any[] } = {}; // Especifica el tipo correcto
 
-  constructor( private router:Router, private toastController: ToastController) {}
-  navigate(){
-  this.router.navigate(['/calendario'])
-  }
-
-  async presentToast(position:'middle') {
-    const toast = await this.toastController.create({
-      message: 'Esta funcion estara disponible en futuras actualizaciones!',
-      duration: 1700,
-      position: position,
-    });
-
-    await toast.present();
-  }
+  constructor(private firestoreService: FirestoreService) {}
 
   ngOnInit() {
+    this.loadHorarios();
   }
 
+  loadHorarios() {
+    this.firestoreService.getHorarios().subscribe(data => {
+      this.horarios = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data() as any
+        };
+      });
+      this.groupHorariosByTime();
+    });
+  }
+
+  groupHorariosByTime() {
+    this.groupedHorarios = this.horarios.reduce((groups, horario) => {
+      if (horario.time) {
+        const time = horario.time.split('T')[1].split(':').slice(0, 2).join(':');
+        if (!groups[time]) {
+          groups[time] = [];
+        }
+        groups[time].push(horario);
+      }
+      return groups;
+    }, {});
+  }
 }

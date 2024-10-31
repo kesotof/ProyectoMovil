@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { FirestoreService } from 'src/service/firestore.service';
 
 @Component({
   selector: 'app-agregar-horario',
@@ -10,7 +11,7 @@ export class AgregarHorarioComponent {
   @Input() medicina: any;
   selectedTime: string | undefined;
 
-  constructor(private modalController: ModalController) {}
+  constructor(private modalController: ModalController, private firestoreService: FirestoreService) {}
 
   close() {
     this.modalController.dismiss();
@@ -23,6 +24,8 @@ export class AgregarHorarioComponent {
       time: this.selectedTime,
       tipo: this.medicina.tipo
     };
-    this.modalController.dismiss(horario);
+    this.firestoreService.addHorario(horario).then(() => {
+      this.modalController.dismiss(horario);
+    });
   }
 }

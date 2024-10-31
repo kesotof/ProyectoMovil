@@ -11,7 +11,7 @@ export class FirestoreService {
     return this.firestore.collection('pastillero').add(horario);
   }
 
-  getHorariosByUser(userId: string) {
-    return this.firestore.collection('pastillero', ref => ref.where('userId', '==', userId)).snapshotChanges();
+  getHorarios() {
+    return this.firestore.collection('pastillero').snapshotChanges();
   }
 }
