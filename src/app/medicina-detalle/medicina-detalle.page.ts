@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MedicinasService } from 'src/service/medicinas.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FirestoreService } from 'src/service/firestore.service';
+import { ModalController } from '@ionic/angular';
+import { AgregarHorarioComponent } from '../agregar-horario/agregar-horario.component';
 
 @Component({
   selector: 'app-medicina-detalle',
@@ -10,11 +14,15 @@ import { MedicinasService } from 'src/service/medicinas.service';
 export class MedicinaDetallePage implements OnInit {
   medicina: any;
   expandedSection: string | null = null;
+  selectedTime: string | undefined;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private medicinasService: MedicinasService
+    private medicinasService: MedicinasService,
+    private afAuth: AngularFireAuth,
+    private firestoreService: FirestoreService,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {
@@ -30,5 +38,21 @@ export class MedicinaDetallePage implements OnInit {
 
   toggleSection(section: string) {
     this.expandedSection = this.expandedSection === section ? null : section;
+  }
+
+  async openAgregarHorarioModal() {
+    const modal = await this.modalController.create({
+      component: AgregarHorarioComponent,
+      componentProps: { medicina: this.medicina }
+    });
+
+    modal.onDidDismiss().then((result) => {
+      if (result.data) {
+        // Aquí puedes manejar el horario agregado
+        console.log('Horario agregado:', result.data);
+      }
+    });
+
+    return await modal.present();
   }
 }

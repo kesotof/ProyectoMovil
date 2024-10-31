@@ -52,15 +52,7 @@
           <p>{{ medicina?.quien_no_debe_consumir }}</p>
         </div>
       </ion-card>
-      <ion-card>
-        <ion-item lines="none" (click)="toggleSection('descripcion')">
-          <ion-label>Descripción</ion-label>
-          <ion-icon slot="end" name="add" color="primary"></ion-icon>
-        </ion-item>
-        <div *ngIf="expandedSection === 'descripcion'" class="tex">
-          <p>{{ medicina?.descripcion }}</p>
-        </div>
-      </ion-card>
+      <ion-button (click)="openAgregarHorarioModal()">Agregar al Pastillero</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

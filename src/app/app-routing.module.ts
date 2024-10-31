@@ -53,7 +53,6 @@ const routes: Routes = [
     path: 'medicina-detalle/:id',
     loadChildren: () => import('./medicina-detalle/medicina-detalle.module').then(m => m.MedicinaDetallePageModule)
   },
-
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -11,12 +11,14 @@ import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from 'src/environments/environment';
+import { FormsModule } from '@angular/forms'; // Importa FormsModule
 import { ParacetamolComponent } from './componetW/paracetamol/paracetamol.component';
 import { Vid1Component } from './component/vid1/vid1.component';
 import { Vid2Component } from './component/vid2/vid2.component';
+import { AgregarHorarioComponent } from './agregar-horario/agregar-horario.component';
 
 @NgModule({
-  declarations: [AppComponent,ParacetamolComponent, Vid1Component, Vid2Component],
+  declarations: [AppComponent, ParacetamolComponent, Vid1Component, Vid2Component, AgregarHorarioComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -24,8 +26,11 @@ import { Vid2Component } from './component/vid2/vid2.component';
     IonicStorageModule.forRoot(),
     AngularFireModule,
     AngularFireAuthModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)],
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    FormsModule
+  ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideFirebaseApp(() => initializeApp({"projectId":"ionictestapp-6355f","appId":"1:917555013625:web:2f6ceeb25d578f020bbf28","storageBucket":"ionictestapp-6355f.appspot.com","apiKey":"AIzaSyAs23Te1KQpkadfclC7nKlUoebPqpTgbDg","authDomain":"ionictestapp-6355f.firebaseapp.com","messagingSenderId":"917555013625"})), provideAuth(() => getAuth()), provideDatabase(() => getDatabase())],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}
