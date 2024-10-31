@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionManager } from '../../managers/SessionManager';
 import { AlertManager } from '../../managers/AlertManager';
+import { StorageProvider } from 'src/managers/StorageProvider';
 
 @Component({
   selector: 'app-registro',
@@ -17,6 +18,7 @@ export class RegistroPage {
     private router: Router,
     private sessionManager: SessionManager,
     private alert: AlertManager,
+    private storageProvider: StorageProvider
   ) { }
 
   async OnRegisterButtonPressed() {
@@ -25,6 +27,7 @@ export class RegistroPage {
       const user = userCredential.user;
 
       if (user) {
+        await this.storageProvider.set('username', this.username);
         this.alert.showAlert(
           'Registro exitoso',
           'Ya eres parte de nuestro sistema',

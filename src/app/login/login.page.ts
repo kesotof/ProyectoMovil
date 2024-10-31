@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionManager } from 'src/managers/SessionManager';
-import { AlertManager } from 'src/managers/AlertManager';
+import { SessionManager } from '../../managers/SessionManager';
+import { AlertManager } from '../../managers/AlertManager';
 import { StorageProvider } from 'src/managers/StorageProvider';
 
 @Component({
@@ -38,13 +38,12 @@ export class LoginPage implements OnInit {
       const userCredential = await this.sessionManager.loginWithEmail(this.email, this.password);
       const user = userCredential.user;
       if (user) {
-        console.log('Usuario autenticado:', user);
-        await this.storageProvider.set('email', this.email);
+        const username = await this.storageProvider.get('username');
+        await this.storageProvider.set('username', username);
         this.router.navigate(['/splash']);
       }
     } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      this.alertManager.showAlert('Error', 'Error al iniciar sesión. Por favor, inténtelo de nuevo.');
+      this.alertManager.showAlert('Error', 'No se pudo iniciar sesión, por favor verifica tus credenciales e intenta de nuevo.');
     }
   }
 
