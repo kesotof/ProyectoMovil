@@ -8,8 +8,7 @@ import { FirestoreService } from 'src/service/firestore.service';
 })
 export class CalendarPage implements OnInit {
   horarios: any[] = [];
-  groupedHorarios: { [key: string]: any[] } = {}; // Especifica el tipo correcto
-
+  groupedHorarios: { [key: string]: any[] } = {};
   constructor(private firestoreService: FirestoreService) {}
 
   ngOnInit() {
