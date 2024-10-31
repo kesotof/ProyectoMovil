@@ -10,7 +10,7 @@ import { StorageProvider } from 'src/managers/StorageProvider';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  username: string = '';
+  email: string = '';
   password: string = '';
 
   constructor(
@@ -29,17 +29,17 @@ export class LoginPage implements OnInit {
   }
 
   resetFields() {
-    this.username = '';
+    this.email = '';
     this.password = '';
   }
 
   async onLoginButtonClick() {
     try {
-      const userCredential = await this.sessionManager.loginWithUsername(this.username, this.password);
+      const userCredential = await this.sessionManager.loginWithEmail(this.email, this.password);
       const user = userCredential.user;
       if (user) {
         console.log('Usuario autenticado:', user);
-        await this.storageProvider.set('username', this.username);
+        await this.storageProvider.set('email', this.email);
         this.router.navigate(['/splash']);
       }
     } catch (error) {
@@ -50,9 +50,5 @@ export class LoginPage implements OnInit {
 
   onRegisterButtonClick() {
     this.router.navigate(['/registro']);
-  }
-
-  openAlert(title: string, message: string) {
-    this.alertManager.showAlert(title, message);
   }
 }
