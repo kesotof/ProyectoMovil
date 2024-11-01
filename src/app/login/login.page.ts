@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SessionManager } from '../../managers/SessionManager';
 import { AlertManager } from '../../managers/AlertManager';
 import { StorageProvider } from 'src/managers/StorageProvider';
+import { getDatabase, ref, get } from 'firebase/database';
 
 @Component({
   selector: 'app-login',
@@ -24,10 +25,6 @@ export class LoginPage implements OnInit {
     this.resetFields();
   }
 
-  ionViewWillEnter() {
-    this.resetFields();
-  }
-
   resetFields() {
     this.email = '';
     this.password = '';
@@ -38,12 +35,21 @@ export class LoginPage implements OnInit {
       const userCredential = await this.sessionManager.loginWithEmail(this.email, this.password);
       const user = userCredential.user;
       if (user) {
-        const username = await this.storageProvider.get('username');
-        await this.storageProvider.set('username', username);
-        this.router.navigate(['/splash']);
+        const db = getDatabase();
+        const userRef = ref(db, `users/${user.uid}`);
+        const snapshot = await get(userRef);
+        if (snapshot.exists()) {
+          const userData = snapshot.val();
+          const username = userData.username;
+          await this.storageProvider.set('currentUsername', username);
+          await this.storageProvider.set('session', true);
+          this.router.navigate(['/splash']);
+        } else {
+          this.alertManager.showAlert('Error', 'No se encontró información del usuario');
+        }
       }
     } catch (error) {
-      this.alertManager.showAlert('Error', 'No se pudo iniciar sesión, por favor verifica tus credenciales e intenta de nuevo.');
+      this.alertManager.showAlert('Error', 'No se pudo iniciar sesión, intenta de nuevo.');
     }
   }
 
