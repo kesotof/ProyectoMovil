@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { getDatabase, ref, set } from '@angular/fire/database';
+import { getDatabase, ref, set} from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root',
@@ -26,8 +26,8 @@ export class SessionManager {
     return userCredential;
   }
 
-  async loginWithUsername(username: string, password: string): Promise<any> {
-    throw new Error('Método no implementado para Realtime Database');
+  async loginWithEmail(email: string, password: string): Promise<any> {
+    return await this.fireAuth.signInWithEmailAndPassword(email, password);
   }
 
   async resetPassword(email: string) {

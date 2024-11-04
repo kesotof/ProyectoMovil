@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionManager } from 'src/managers/SessionManager';
-import { AlertManager } from 'src/managers/AlertManager';
+import { SessionManager } from '../../managers/SessionManager';
+import { AlertManager } from '../../managers/AlertManager';
 import { StorageProvider } from 'src/managers/StorageProvider';
+import { getDatabase, ref, get } from 'firebase/database';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { StorageProvider } from 'src/managers/StorageProvider';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  username: string = '';
+  email: string = '';
   password: string = '';
 
   constructor(
@@ -24,35 +25,35 @@ export class LoginPage implements OnInit {
     this.resetFields();
   }
 
-  ionViewWillEnter() {
-    this.resetFields();
-  }
-
   resetFields() {
-    this.username = '';
+    this.email = '';
     this.password = '';
   }
 
   async onLoginButtonClick() {
     try {
-      const userCredential = await this.sessionManager.loginWithUsername(this.username, this.password);
+      const userCredential = await this.sessionManager.loginWithEmail(this.email, this.password);
       const user = userCredential.user;
       if (user) {
-        console.log('Usuario autenticado:', user);
-        await this.storageProvider.set('username', this.username);
-        this.router.navigate(['/splash']);
+        const db = getDatabase();
+        const userRef = ref(db, `users/${user.uid}`);
+        const snapshot = await get(userRef);
+        if (snapshot.exists()) {
+          const userData = snapshot.val();
+          const username = userData.username;
+          await this.storageProvider.set('currentUsername', username);
+          await this.storageProvider.set('session', true);
+          this.router.navigate(['/splash']);
+        } else {
+          this.alertManager.showAlert('Error', 'No se encontró información del usuario');
+        }
       }
     } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      this.alertManager.showAlert('Error', 'Error al iniciar sesión. Por favor, inténtelo de nuevo.');
+      this.alertManager.showAlert('Error', 'No se pudo iniciar sesión, intenta de nuevo.');
     }
   }
 
   onRegisterButtonClick() {
     this.router.navigate(['/registro']);
-  }
-
-  openAlert(title: string, message: string) {
-    this.alertManager.showAlert(title, message);
   }
 }

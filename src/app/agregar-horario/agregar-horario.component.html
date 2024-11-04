@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar Horario</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-datetime display-format="h:mm A" [(ngModel)]="selectedTime"></ion-datetime>
+  </ion-item>
+  <ion-button expand="full" (click)="agregarHorario()">Agregar</ion-button>
+</ion-content>

@@ -20,8 +20,8 @@ export class SplashPage implements OnInit {
   }
 
   async loadData() {
-    const username = await this.storageProvider.get('username');
+    const username = await this.storageProvider.get('currentUsername');
     console.log('Nombre de usuario recuperado:', username);
-    this.username = username;
+    this.username = username || 'Usuario';
   }
 }
