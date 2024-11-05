@@ -28,6 +28,10 @@ const routes: Routes = [
     loadChildren: () => import('./video/video.module').then( m => m.VideoPageModule),
   },
   {
+    path: 'calendar',
+    loadChildren: () => import('./pages/calendar/calendar.module').then( m => m.CalendarPageModule),
+  },
+  {
     path: 'splash',
     loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
   },
@@ -36,8 +40,8 @@ const routes: Routes = [
     loadChildren: () => import('./sintomas/listasin/listasin.module').then(m => m.ListasinPageModule)
   },
   {
-    path: 'sintomas/detallesin/:id',
-    loadChildren: () => import('./sintomas/listasin/listasin-routing.module').then(m => m.ListasinPageRoutingModule)
+    path: 'sintomas/sintoma-detalle/:id',
+    loadChildren: () => import('./sintomas/detallesin/detallesin.module').then(m => m.DetallesinPageModule)
   },
   {
     path: 'medicinas',

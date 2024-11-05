@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class ListasinPage implements OnInit {
   sintomas: any[] = [];
 
-  constructor( private sintomasService : SintomasService, private router : Router ) { }
+  constructor(private sintomasService: SintomasService, private router: Router) {}
 
   ngOnInit() {
     this.sintomasService.getSintomas().subscribe(data => {
@@ -20,7 +20,7 @@ export class ListasinPage implements OnInit {
 
   verDetalle(id: string) {
     if (id) {
-      this.router.navigate(['sintomas/sintoma-detalle', id]);
+      this.router.navigate(['/sintomas/sintoma-detalle', id]);
     } else {
       console.error('ID de sintoma no definido');
     }

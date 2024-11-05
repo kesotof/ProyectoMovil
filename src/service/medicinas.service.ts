@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 export class MedicinasService {
   constructor(private firestore: AngularFirestore) {}
 
+  //Obtiene todos los medicamentos
   getMedicinas(): Observable<any[]> {
     return this.firestore.collection('medicinas').snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -20,6 +21,7 @@ export class MedicinasService {
     );
   }
 
+  //Busca al medicamento por su id
   getMedicinaById(id: string): Observable<any> {
     return this.firestore.collection('medicinas').doc(id).snapshotChanges().pipe(
       map(a => {
@@ -30,6 +32,8 @@ export class MedicinasService {
     );
   }
 
+
+  //Llama a la imagen dependiendo del tipo de medicamento
   private getImagenPorTipo(tipo: string): string {
     switch (tipo) {
       case 'pastilla':
