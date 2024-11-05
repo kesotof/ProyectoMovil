@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ParacetamolComponent } from './paracetamol.component';
+import { EditarHorarioComponent } from './editar-horario.component';
 
-describe('ParacetamolComponent', () => {
-  let component: ParacetamolComponent;
-  let fixture: ComponentFixture<ParacetamolComponent>;
+describe('EditarHorarioComponent', () => {
+  let component: EditarHorarioComponent;
+  let fixture: ComponentFixture<EditarHorarioComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ParacetamolComponent ],
+      declarations: [ EditarHorarioComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ParacetamolComponent);
+    fixture = TestBed.createComponent(EditarHorarioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

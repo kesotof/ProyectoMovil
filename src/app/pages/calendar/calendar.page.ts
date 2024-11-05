@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { FirestoreService } from 'src/service/firestore.service';
+import { EditarHorarioComponent } from 'src/app/editar-horario/editar-horario.component';
 
 @Component({
   selector: 'app-calendar',
@@ -9,7 +11,8 @@ import { FirestoreService } from 'src/service/firestore.service';
 export class CalendarPage implements OnInit {
   horarios: any[] = [];
   groupedHorarios: { [key: string]: any[] } = {};
-  constructor(private firestoreService: FirestoreService) {}
+
+  constructor(private firestoreService: FirestoreService, private modalController: ModalController) {}
 
   ngOnInit() {
     this.loadHorarios();
@@ -38,5 +41,20 @@ export class CalendarPage implements OnInit {
       }
       return groups;
     }, {});
+  }
+
+  async openEditarHorarioModal(horario: any) {
+    const modal = await this.modalController.create({
+      component: EditarHorarioComponent,
+      componentProps: { horario: horario }
+    });
+
+    modal.onDidDismiss().then((result) => {
+      if (result.data) {
+        console.log('Horario editado:', result.data);
+      }
+    });
+
+    return await modal.present();
   }
 }

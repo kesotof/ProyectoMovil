@@ -15,7 +15,7 @@
       <ion-item-divider>
         <ion-label>{{ time.key }}</ion-label>
       </ion-item-divider>
-      <ion-item *ngFor="let horario of time.value">
+      <ion-item *ngFor="let horario of time.value" (click)="openEditarHorarioModal(horario)">
         <ion-label>
           <h2>{{ horario.nombre }}</h2>
           <p>{{ horario.time }}</p>

@@ -14,4 +14,13 @@ export class FirestoreService {
   getHorarios() {
     return this.firestore.collection('pastillero').snapshotChanges();
   }
+
+  updateHorario(id: string, horario: any) {
+    return this.firestore.collection('pastillero').doc(id).update(horario);
+  }
+
+  deleteHorario(id: string) {
+    return this.firestore.collection('pastillero').doc(id).delete();
+  }
+
 }
