@@ -12,6 +12,8 @@
   <ion-item>
     <ion-datetime display-format="h:mm A" [(ngModel)]="selectedTime" presentation="time"></ion-datetime>
   </ion-item>
-  <ion-button (click)="editarHorario()">Guardar</ion-button>
-  <ion-button (click)="eliminar()">Eliminar</ion-button>
+  <ion-buttons class="botones-container">
+    <ion-button class="edit" (click)="editarHorario()">Guardar</ion-button>
+    <ion-button class="edit" (click)="eliminar()">Eliminar</ion-button>
+  </ion-buttons>
 </ion-content>

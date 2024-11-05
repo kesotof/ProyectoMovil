@@ -1,0 +1,23 @@
+ion-datetime {
+  margin: 50px auto;
+  width: 100%;
+  max-width: 200px;
+  height: 200px;
+}
+
+.botones-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 10px 20px;
+}
+
+ion-button.edit {
+  background-color: rgb(101, 142, 255);
+  color: #000;
+  border-radius: 40px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  -ms-border-radius: 40px;
+  -o-border-radius: 40px;
+}
