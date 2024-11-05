@@ -27,6 +27,7 @@ import { Vid2Component } from './component/vid2/vid2.component';
 import { AgregarHorarioComponent } from './agregar-horario/agregar-horario.component';
 import { EditarHorarioComponent } from './editar-horario/editar-horario.component';
 
+
 @NgModule({
   declarations: [AppComponent, Vid1Component, Vid2Component, AgregarHorarioComponent, EditarHorarioComponent],
   imports: [
