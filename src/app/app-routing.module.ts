@@ -36,8 +36,8 @@ const routes: Routes = [
     loadChildren: () => import('./sintomas/listasin/listasin.module').then(m => m.ListasinPageModule)
   },
   {
-    path: 'sintomas/detallesin/:id',
-    loadChildren: () => import('./sintomas/listasin/listasin-routing.module').then(m => m.ListasinPageRoutingModule)
+    path: 'sintomas/sintoma-detalle/:id',
+    loadChildren: () => import('./sintomas/detallesin/detallesin.module').then(m => m.DetallesinPageModule)
   },
   {
     path: 'medicinas',

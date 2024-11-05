@@ -9,6 +9,7 @@ import { map } from "rxjs/operators";
 export class SintomasService {
     constructor(private firestore: AngularFirestore) {}
 
+    //Obtiene todos los sintomas
     getSintomas(): Observable<any[]> {
         return this.firestore.collection('sintomas').snapshotChanges().pipe(
             map(actions => actions.map(a => {
@@ -19,6 +20,7 @@ export class SintomasService {
         );
     }
 
+    //Busca al sintoma por su id
     getSintomaById(id: string): Observable<any> {
         return this.firestore.collection('sintomas').doc(id).snapshotChanges().pipe(
             map(a => {

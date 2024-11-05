@@ -1,13 +1,22 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>detallesin</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/sintomas/listasin"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ sintoma?.nombre }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">detallesin</ion-title>
+      <ion-title size="large">{{ sintoma?.nombre }}</ion-title>
     </ion-toolbar>
   </ion-header>
+  <div *ngIf="sintoma">
+    <p>{{ sintoma.descripcion }}</p>
+    <ion-button *ngIf="sintoma.medicamentoId" (click)="verMedicamento(sintoma.medicamentoId)">
+      Ver Medicamento
+    </ion-button>
+  </div>
 </ion-content>
