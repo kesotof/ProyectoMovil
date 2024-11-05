@@ -28,6 +28,10 @@ const routes: Routes = [
     loadChildren: () => import('./video/video.module').then( m => m.VideoPageModule),
   },
   {
+    path: 'calendar',
+    loadChildren: () => import('./pages/calendar/calendar.module').then( m => m.CalendarPageModule),
+  },
+  {
     path: 'splash',
     loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
   },
