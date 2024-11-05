@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { SessionManager } from "src/service/session.controller";
+import { FirestoreService } from "src/service/firestore.service";
 
 
 @Injectable({
@@ -7,13 +8,23 @@ import { SessionManager } from "src/service/session.controller";
 })
 export class RegisterUserUseCase {
     
-    constructor(private sessionManager: SessionManager) {}
+    constructor(private sessionManager: SessionManager,
+                private firestoreService: FirestoreService
+    ) {}
 
     async register(name: string, email:string, password: string): Promise<boolean> {
         // try to register using SessionManager
         try{
-            const registerResult = await this.sessionManager.register(email, password);
-            return registerResult;
+            const newUser = await this.sessionManager.register(email, password);
+            
+            if (newUser == null) {
+                throw Error("Fallo en el registro");
+            }
+
+            // save the user in firestore
+            await this.firestoreService.addUser(newUser);
+
+            return true;
         }
         catch(error: any){
             switch (error.code) {

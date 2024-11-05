@@ -11,9 +11,10 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 // Firebase imports
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+// import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 // Environment
 import { environment } from 'src/environments/environment';
@@ -21,7 +22,7 @@ import { environment } from 'src/environments/environment';
 // App components
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ParacetamolComponent } from './componetW/paracetamol/paracetamol.component';
+// import { ParacetamolComponent } from './component/paracetamol/paracetamol.component';
 import { Vid1Component } from './component/vid1/vid1.component';
 import { Vid2Component } from './component/vid2/vid2.component';
 import { AgregarHorarioComponent } from './agregar-horario/agregar-horario.component';
@@ -36,22 +37,17 @@ import { EditarHorarioComponent } from './editar-horario/editar-horario.componen
     AppRoutingModule,
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,
+    // AngularFireAuthModule,
     // AngularDatabaseModule,
     // AnguarStorageModule,
     FormsModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
-    provideFirebaseApp(() => initializeApp({
-      "projectId": environment.firebaseConfig.projectId,
-      "appId":environment.firebaseConfig.appId,
-      "storageBucket":environment.firebaseConfig.storageBucket,
-      "apiKey":environment.firebaseConfig.apiKey,
-      "authDomain":environment.firebaseConfig.authDomain,
-      "messagingSenderId":environment.firebaseConfig.messagingSenderId})), 
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), 
     provideAuth(() => getAuth()), 
-    provideDatabase(() => getDatabase())
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => getFirestore())
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

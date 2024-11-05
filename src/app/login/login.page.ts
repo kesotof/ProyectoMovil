@@ -28,35 +28,16 @@ export class LoginPage implements OnInit {
   }
 
   async onLoginButtonClick() {
-    // try {
-    //   const userCredential = await this.sessionManager.loginWithEmail(this.email, this.password);
-    //   const user = userCredential.user;
-    //   if (user) {
-    //     const db = getDatabase();
-    //     const userRef = ref(db, `users/${user.uid}`);
-    //     const snapshot = await get(userRef);
-    //     if (snapshot.exists()) {
-    //       const userData = snapshot.val();
-    //       const username = userData.username;
-    //       await this.storageProvider.set('currentUsername', username);
-    //       await this.storageProvider.set('session', true);
-    //       this.router.navigate(['/splash']);
-    //     } else {
-    //       this.alertManager.showAlert('Error', 'No se encontró información del usuario');
-    //     }
-    //   }
-    // } catch (error) {
-    //   this.alertManager.showAlert('Error', 'No se pudo iniciar sesión, intenta de nuevo.');
-    // }
-
-    // login using firebase auth service
+    // login use case
     try {
       let result = await this.loginUserUseCase.login(this.email, this.password);
       if(result){
         console.log('Login successful');
+        this.router.navigate(['/splash']);
       }
       else{
         console.log('Login failed');
+        this.alertManager.showAlert('Error', 'Error al iniciar sesión');
       }
   } catch (error) {
       console.log(error);
