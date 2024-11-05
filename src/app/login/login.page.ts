@@ -31,17 +31,18 @@ export class LoginPage implements OnInit {
     // login use case
     try {
       let result = await this.loginUserUseCase.login(this.email, this.password);
-      if(result){
+      if (result) {
         console.log('Login successful');
         this.router.navigate(['/splash']);
       }
-      else{
+      else {
         console.log('Login failed');
         this.alertManager.showAlert('Error', 'Error al iniciar sesión');
       }
-  } catch (error) {
+    } catch (error) {
       console.log(error);
-  }}
+    }
+  }
 
   onRegisterButtonClick() {
     this.router.navigate(['/registro']);

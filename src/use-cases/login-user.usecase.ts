@@ -10,11 +10,11 @@ import { User } from "src/interfaces/User";
 export class LoginUserUseCase {
     constructor(
         private sessionManager: SessionManager,
-        private firestoreService: FirestoreService) {}
+        private firestoreService: FirestoreService) { }
 
     async login(username: string, password: string): Promise<boolean> {
         // try to login using SessionManager
-        try{
+        try {
             // this login and set the current user in the local storage
             const loginResult = await this.sessionManager.loginUser(username, password);
             if (!loginResult) {
@@ -28,14 +28,14 @@ export class LoginUserUseCase {
             const userUid = currentUser?.uid;
             let user = await this.firestoreService.getUser(userUid);
 
-            console.log(user) //!!!
-
             // set all user data using session controller
+            this.sessionManager.setActiveUser(user);
+
             // this.sessionManager.setActiveUser(user);
-            return false;
+            return true;
 
         }
-        catch(error){
+        catch (error) {
             console.error('Login error:', error);
             return false;
         }
