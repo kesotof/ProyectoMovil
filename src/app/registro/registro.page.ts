@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionManager } from '../../managers/SessionManager';
 import { AlertManager } from '../../managers/AlertManager';
-import { StorageProvider } from 'src/managers/StorageProvider';
+import { RegisterUserUseCase } from 'src/use-cases/register-user.usecase';
 
 @Component({
   selector: 'app-registro',
@@ -16,54 +15,40 @@ export class RegistroPage {
 
   constructor(
     private router: Router,
-    private sessionManager: SessionManager,
     private alert: AlertManager,
-    private storageProvider: StorageProvider
+    private registerUserUseCase: RegisterUserUseCase,
+
   ) { }
 
   async OnRegisterButtonPressed() {
-    try {
-      const userCredential = await this.sessionManager.registerUserWith(this.email, this.password, this.username);
-      const user = userCredential.user;
+    // first check if the input is valid
+    if (!isValidInput(this.username, this.email, this.password)) {
+      this.alert.showAlert(
+        'Error',
+        'Por favor, llena todos los campos',
+      );
+      return;
+    }
 
-      if (user) {
-        await this.storageProvider.set('username', this.username);
+    // then we try to register the user
+    try {
+      const registerResult = await this.registerUserUseCase.register(this.username, this.email, this.password);
+
+      if (registerResult) {
         this.alert.showAlert(
           'Registro exitoso',
-          'Ya eres parte de nuestro sistema',
+          'Ya eres parte de nuestro sistema :)',
         );
+        this.resetForm();
+        this.router.navigate(['/login']);
       } else {
-        alert('¡Registro exitoso!');
+        alert('Algo Falló!');
       }
-
-      this.router.navigate(['/login']);
-    } catch (error: any) {
-      switch (error.code) {
-        case 'auth/email-already-in-use':
-          this.alert.showAlert(
-            'Error',
-            'Este correo electrónico ya está en uso. Por favor, utiliza otro o inicia sesión.',
-          );
-          break;
-        case 'auth/invalid-email':
-          this.alert.showAlert(
-            'Error',
-            'La dirección de correo electrónico no es válida.',
-          );
-          break;
-        case 'auth/weak-password':
-          this.alert.showAlert(
-            'Error',
-            'La contraseña es muy débil.',
-          );
-          break;
-        default:
-          this.alert.showAlert(
-            'Error',
-            'Ocurrió un error al registrar el usuario: ' + error.message,
-          );
-          break;
-      }
+    } catch (error) {
+      this.alert.showAlert(
+        'Error',
+        'Error al registrar: ' + error,
+      );
     }
   }
 
@@ -72,4 +57,18 @@ export class RegistroPage {
     this.password = "";
     this.email = "";
   }
+
 }
+
+// !!! not complete. We need to implement validation per field and 
+// show dynamic css classes to show errors on screen
+function isValidInput(name: string, email: string, password: string) {
+  // Check if the input is not empty
+  if (name === "" || email === "" || password === "") {
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+

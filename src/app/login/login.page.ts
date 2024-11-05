@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionManager } from '../../managers/SessionManager';
 import { AlertManager } from '../../managers/AlertManager';
-import { StorageProvider } from 'src/managers/StorageProvider';
-import { getDatabase, ref, get } from 'firebase/database';
+import { LoginUserUseCase } from 'src/use-cases/login-user.usecase';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +14,8 @@ export class LoginPage implements OnInit {
 
   constructor(
     private router: Router,
-    private sessionManager: SessionManager,
     private alertManager: AlertManager,
-    private storageProvider: StorageProvider
+    private loginUserUseCase: LoginUserUseCase
   ) { }
 
   ngOnInit() {
@@ -31,25 +28,19 @@ export class LoginPage implements OnInit {
   }
 
   async onLoginButtonClick() {
+    // login use case
     try {
-      const userCredential = await this.sessionManager.loginWithEmail(this.email, this.password);
-      const user = userCredential.user;
-      if (user) {
-        const db = getDatabase();
-        const userRef = ref(db, `users/${user.uid}`);
-        const snapshot = await get(userRef);
-        if (snapshot.exists()) {
-          const userData = snapshot.val();
-          const username = userData.username;
-          await this.storageProvider.set('currentUsername', username);
-          await this.storageProvider.set('session', true);
-          this.router.navigate(['/splash']);
-        } else {
-          this.alertManager.showAlert('Error', 'No se encontró información del usuario');
-        }
+      let result = await this.loginUserUseCase.login(this.email, this.password);
+      if (result) {
+        console.log('Login successful');
+        this.router.navigate(['/splash']);
+      }
+      else {
+        console.log('Login failed');
+        this.alertManager.showAlert('Error', 'Error al iniciar sesión');
       }
     } catch (error) {
-      this.alertManager.showAlert('Error', 'No se pudo iniciar sesión, intenta de nuevo.');
+      console.log(error);
     }
   }
 
