@@ -29,7 +29,7 @@ export class RegistroPage {
       );
       return;
     }
-    
+
     // then we try to register the user
     try {
       const registerResult = await this.registerUserUseCase.register(this.username, this.email, this.password);
@@ -45,12 +45,12 @@ export class RegistroPage {
         alert('Algo Falló!');
       }
     } catch (error) {
-        this.alert.showAlert(
-          'Error',
-          'Error al registrar: ' + error,
-        );
-      }
+      this.alert.showAlert(
+        'Error',
+        'Error al registrar: ' + error,
+      );
     }
+  }
 
   resetForm() {
     this.username = "";
@@ -67,7 +67,7 @@ function isValidInput(name: string, email: string, password: string) {
   if (name === "" || email === "" || password === "") {
     return false;
   }
-  else{
+  else {
     return true;
   }
 }

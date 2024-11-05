@@ -43,14 +43,14 @@ export class SessionManager {
         }
     }
 
-    public async register(email: string, password: string): Promise<UserApp | null> {
+    public async register(email: string, password: string, name: string): Promise<UserApp | null> {
         try {
             let userCredential = await this.afAuth.register(email, password);
             if (userCredential) {
                 let newUser: UserApp = {
                     uid: userCredential.user.uid,
                     email: email,
-                    name: '',
+                    name: name,
                     pastilleroId: null
                 };
                 return newUser;
@@ -77,6 +77,10 @@ export class SessionManager {
 
     public getUserUid(): string | null {
         return this.activeUser?.uid || null;
+    }
+
+    public getPastilleroId(): string | null {
+        return this.activeUser?.pastilleroId || null;
     }
 
     private async saveActiveUser(): Promise<void> {
