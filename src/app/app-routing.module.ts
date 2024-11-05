@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { ParacetamolComponent } from './componetW/paracetamol/paracetamol.component';
 
 const routes: Routes = [
   {
@@ -29,10 +28,6 @@ const routes: Routes = [
     loadChildren: () => import('./video/video.module').then( m => m.VideoPageModule),
   },
   {
-    path: 'buscar',
-    loadChildren: () => import('./buscar/buscar.module').then( m => m.BuscarPageModule)
-  },
-  {
     path: 'splash',
     loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
   },
@@ -44,7 +39,6 @@ const routes: Routes = [
     path: 'sintomas/detallesin/:id',
     loadChildren: () => import('./sintomas/listasin/listasin-routing.module').then(m => m.ListasinPageRoutingModule)
   },
-  { path: 'paracetamol', component: ParacetamolComponent },
   {
     path: 'medicinas',
     loadChildren: () => import('./medicinas/medicinas.module').then( m => m.MedicinasPageModule)

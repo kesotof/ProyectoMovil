@@ -11,14 +11,14 @@ import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from 'src/environments/environment';
-import { FormsModule } from '@angular/forms'; // Importa FormsModule
-import { ParacetamolComponent } from './componetW/paracetamol/paracetamol.component';
+import { FormsModule } from '@angular/forms';
 import { Vid1Component } from './component/vid1/vid1.component';
 import { Vid2Component } from './component/vid2/vid2.component';
 import { AgregarHorarioComponent } from './agregar-horario/agregar-horario.component';
+import { EditarHorarioComponent } from './editar-horario/editar-horario.component';
 
 @NgModule({
-  declarations: [AppComponent, ParacetamolComponent, Vid1Component, Vid2Component, AgregarHorarioComponent],
+  declarations: [AppComponent, Vid1Component, Vid2Component, AgregarHorarioComponent, EditarHorarioComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

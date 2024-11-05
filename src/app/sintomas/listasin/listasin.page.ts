@@ -17,7 +17,7 @@ export class ListasinPage implements OnInit {
       this.sintomas = data;
     });
   }
-  
+
   verDetalle(id: string) {
     if (id) {
       this.router.navigate(['sintomas/sintoma-detalle', id]);
