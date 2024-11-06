@@ -8,12 +8,12 @@
     <ion-title> Agregar medicamentos </ion-title>
     <ion-label>Empieza a buscar medicamentos y remedios</ion-label>
     <ion-label>Para agendar</ion-label>
-    <ion-button [routerLink]="['/buscar']">Buscar Medicamentos</ion-button>
+    <ion-button [routerLink]="['/tabs/wiki']">Buscar Medicamentos</ion-button>
   </ion-card>
   <ion-list *ngIf="horarios.length > 0">
     <div *ngFor="let time of groupedHorarios | keyvalue">
       <ion-item-divider>
-        <ion-label>{{ time.key }}</ion-label>
+        <ion-label>{{ time.key | date:'HH:mm' }}</ion-label>
       </ion-item-divider>
       <ion-item *ngFor="let horario of time.value" (click)="openEditarHorarioModal(horario)">
         <ion-label>
