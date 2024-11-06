@@ -8,4 +8,6 @@ export interface Pastillero {
       hora: string;
     }[];
   }[];
+
 }
+
