@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map } from 'rxjs/operators';
-import { Observable, firstValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { User } from 'src/interfaces/User';
+import { Pastillero } from 'src/interfaces/Pastillero';
+import { Medicamento } from 'src/interfaces/Medicamento';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,24 +13,82 @@ export class FirestoreService {
 
   // CRUD de pastillero
 
-  // Crea un nuevo horario
-  addHorario(horario: any) {
-    return this.firestore.collection('pastillero').add(horario);
+  // Crear nuevo pastillero para un usuario
+  createPastillero(userId: string) {
+    const newPastillero: Pastillero = {
+      pastilleroId: userId,
+      medicamentos: []
+    };
+    return this.firestore.collection('pastillero').doc(userId).set(newPastillero);
   }
 
-  // Obtiene los horarios
-  getHorarios() {
-    return this.firestore.collection('pastillero').snapshotChanges();
+  // Obtener pastillero de un usuario
+  getPastillero(userId: string) {
+    return this.firestore.collection('pastillero').doc(userId).valueChanges();
   }
 
-  // Actualiza un horario
-  updateHorario(id: string, horario: any) {
-    return this.firestore.collection('pastillero').doc(id).update(horario);
+  // Agregar horario a un medicamento
+  async addHorario(userId: string, medicamento: any, hora: string) {
+    const pastilleroRef = this.firestore.collection('pastillero').doc(userId);
+    const pastillero = await pastilleroRef.get().toPromise();
+
+    if (!pastillero?.exists) {
+      await this.createPastillero(userId);
+    }
+
+    return pastilleroRef.get().toPromise().then((doc) => {
+      const data = doc?.data() as Pastillero;
+      const medicamentoExistente = data.medicamentos.find(m => m.medicamentoId === medicamento.id);
+
+      if (medicamentoExistente) {
+        medicamentoExistente.horarios.push({
+          id: this.firestore.createId(),
+          hora: hora
+        });
+      } else {
+        data.medicamentos.push({
+          medicamentoId: medicamento.id,
+          nombre: medicamento.nombre,
+          horarios: [{
+            id: this.firestore.createId(),
+            hora: hora
+          }]
+        });
+      }
+
+      return pastilleroRef.update(data);
+    });
   }
 
-  // Elimina un horario
-  deleteHorario(id: string) {
-    return this.firestore.collection('pastillero').doc(id).delete();
+  // Actualizar horario
+  updateHorario(userId: string, medicamentoId: string, horarioId: string, newHora: string) {
+    return this.firestore.collection('pastillero').doc(userId).get().toPromise()
+      .then((doc) => {
+        const data = doc?.data() as Pastillero;
+        const medicamento = data.medicamentos.find(m => m.medicamentoId === medicamentoId);
+        const horario = medicamento?.horarios.find(h => h.id === horarioId);
+
+        if (horario) {
+          horario.hora = newHora;
+          return this.firestore.collection('pastillero').doc(userId).update(data);
+        }
+        return Promise.reject('Horario no encontrado');
+      });
+  }
+
+  // Eliminar horario
+  deleteHorario(userId: string, medicamentoId: string, horarioId: string) {
+    return this.firestore.collection('pastillero').doc(userId).get().toPromise()
+      .then((doc) => {
+        const data = doc?.data() as Pastillero;
+        const medicamento = data.medicamentos.find(m => m.medicamentoId === medicamentoId);
+
+        if (medicamento) {
+          medicamento.horarios = medicamento.horarios.filter(h => h.id !== horarioId);
+          return this.firestore.collection('pastillero').doc(userId).update(data);
+        }
+        return Promise.reject('Medicamento no encontrado');
+      });
   }
 
   // User methods

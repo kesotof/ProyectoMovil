@@ -1,6 +1,8 @@
+// src/app/editar-horario/editar-horario.component.ts
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FirestoreService } from 'src/service/firestore.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-editar-horario',
@@ -9,12 +11,23 @@ import { FirestoreService } from 'src/service/firestore.service';
 })
 export class EditarHorarioComponent implements OnInit {
   @Input() horario: any;
+  @Input() medicamentoId: string | undefined;
   selectedTime: string | undefined;
+  userId: string | undefined;
 
-  constructor(private modalController: ModalController, private firestoreService: FirestoreService) {}
+  constructor(
+    private modalController: ModalController,
+    private firestoreService: FirestoreService,
+    private auth: AngularFireAuth
+  ) {
+    this.auth.user.subscribe(user => {
+      this.userId = user?.uid || '';
+    });
+  }
 
   ngOnInit() {
-    this.selectedTime = this.horario.time;
+    // Asumimos que horario ahora tiene la estructura { id: string, hora: string }
+    this.selectedTime = this.horario.hora;
   }
 
   close() {
@@ -22,19 +35,41 @@ export class EditarHorarioComponent implements OnInit {
   }
 
   editarHorario() {
-    const updatedHorario = {
-      ...this.horario,
-      time: this.selectedTime
-    };
-    this.firestoreService.updateHorario(this.horario.id, updatedHorario).then(() => {
-      this.modalController.dismiss(updatedHorario);
+    if (!this.userId || !this.selectedTime || !this.medicamentoId) return;
+
+    this.firestoreService.updateHorario(
+      this.userId,
+      this.medicamentoId,
+      this.horario.id,
+      this.selectedTime
+    ).then(() => {
+      this.modalController.dismiss({
+        success: true,
+        action: 'update',
+        horario: {
+          id: this.horario.id,
+          hora: this.selectedTime
+        }
+      });
+    }).catch(error => {
+      console.error('Error al actualizar horario:', error);
     });
   }
 
   eliminar() {
-    this.firestoreService.deleteHorario(this.horario.id).then(() => {
-      this.modalController.dismiss();
+    if (!this.userId || !this.medicamentoId) return;
+
+    this.firestoreService.deleteHorario(
+      this.userId,
+      this.medicamentoId,
+      this.horario.id
+    ).then(() => {
+      this.modalController.dismiss({
+        success: true,
+        action: 'delete'
+      });
+    }).catch(error => {
+      console.error('Error al eliminar horario:', error);
     });
   }
-
 }

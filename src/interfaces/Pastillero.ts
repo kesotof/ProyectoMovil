@@ -1,10 +1,13 @@
 export interface Pastillero {
-    pastilleroId: string | null;
-    pastillas: {
-        id_pastilla: string;
-        nombre: string;
-        hora: string;
+  pastilleroId: string;
+  medicamentos: {
+    medicamentoId: string;
+    nombre: string;
+    horarios: {
+      id: string;
+      hora: string;
     }[];
+  }[];
 }
 
 // Create a new Pastillero object
