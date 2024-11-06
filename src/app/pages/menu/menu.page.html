@@ -44,7 +44,7 @@
     <ion-grid>
       <ion-row>
         <ion-col size="10">
-          <ion-button color="light" expand="full" [routerLink]="['/buscar']"><span class="material-symbols-outlined">
+          <ion-button color="light" expand="full" [routerLink]="['/medicinas']"><span class="material-symbols-outlined">
             medical_services
             </span> Buscar </ion-button>
         </ion-col>
@@ -65,12 +65,12 @@
       </ion-row>
       <ion-row>
         <ion-col size="5">
-          <ion-button color="light" expand="full" [routerLink]="['/sintomas']"><span class="material-symbols-outlined">
+          <ion-button color="light" expand="full" [routerLink]="['../../sintomas/listasin']"><span class="material-symbols-outlined">
             conditions
             </span> Sintomas</ion-button>
         </ion-col>
         <ion-col size="5">
-          <ion-button color="light" expand="full" [disabled]="true"><span class="material-symbols-outlined">
+          <ion-button color="light" expand="full" [routerLink]="['/tabs/calendar']" ><span class="material-symbols-outlined">
             calendar_month
             </span>Horario</ion-button>
         </ion-col>

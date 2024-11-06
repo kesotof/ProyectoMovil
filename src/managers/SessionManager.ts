@@ -37,11 +37,11 @@ public logout(): boolean {
 }
 
 public register(username: string, password: string, email: string): boolean {
-    // check if username is already taken
     console.log("username: "+username);
     console.log("email: "+email);
     console.log("passw: "+password);
-
+    
+    // check if username is already taken
     for (const user of this.userCredentials) {
         if (user.username === username) {
             return false;

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionManager } from 'src/managers/SessionManager';
-import { AlertManager } from 'src/managers/AlertManager';
-
+import { AlertManager } from '../../managers/AlertManager';
+import { LoginUserUseCase } from 'src/use-cases/login-user.usecase';
 
 @Component({
   selector: 'app-login',
@@ -10,32 +9,42 @@ import { AlertManager } from 'src/managers/AlertManager';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  email: string = '';
+  password: string = '';
 
   constructor(
-    private router : Router,
-    private sessionManager : SessionManager,
-    private alertManager : AlertManager,
+    private router: Router,
+    private alertManager: AlertManager,
+    private loginUserUseCase: LoginUserUseCase
   ) { }
 
-  protected username: string = '';
-  protected password: string = '';
+  ngOnInit() {
+    this.resetFields();
+  }
 
-  onLoginButtonClick() {
-    if (this.sessionManager.login(this.username, this.password)) {
-      let userData = this.sessionManager.getUserData();
-      this.router.navigate(['/splash'], {queryParams: userData});
-    } else {
-      this.alertManager.showAlert('Error', 'Usuario o contraseña incorrectos');
+  resetFields() {
+    this.email = '';
+    this.password = '';
+  }
+
+  async onLoginButtonClick() {
+    // login use case
+    try {
+      let result = await this.loginUserUseCase.login(this.email, this.password);
+      if (result) {
+        console.log('Login successful');
+        this.router.navigate(['/splash']);
+      }
+      else {
+        console.log('Login failed');
+        this.alertManager.showAlert('Error', 'Error al iniciar sesión');
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
+
   onRegisterButtonClick() {
     this.router.navigate(['/registro']);
-  }
-
-  openAlert(title: string, message: string) {
-    alert(title + ': ' + message);
-  }
-
-  ngOnInit() {
   }
 }

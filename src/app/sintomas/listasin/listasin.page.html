@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/wiki"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sintomas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let sintoma of sintomas" (click)="verDetalle(sintoma.id)">
+      <ion-avatar slot="start">
+        <img [src]="sintoma.imagen" alt="{{ sintoma.nombre }}" />
+      </ion-avatar>
+      <ion-label>
+        <h4>{{ sintoma.nombre }}</h4>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

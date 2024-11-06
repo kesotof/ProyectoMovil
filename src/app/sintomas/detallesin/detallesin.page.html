@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/sintomas/listasin"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ sintoma?.nombre }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{ sintoma?.nombre }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div *ngIf="sintoma">
+    <p class="mb-2"><strong>Description:</strong> {{ sintoma?.descripcion }}</p>
+    <p class="mb-2"><strong>duracion:</strong> {{ sintoma?.duracion }}</p>
+    <p class="mb-2"><strong>severedad:</strong> {{ sintoma?.severedad }}</p>
+    <h3 class="text-lg font-bold mb-2">Tratamientos:</h3>
+    <ion-list>
+      <ion-item *ngIf="sintoma?.tratamiento1">{{ sintoma?.tratamiento1 }}</ion-item>
+      <ion-item *ngIf="sintoma?.tratamiento2">{{ sintoma?.tratamiento2 }}</ion-item>
+      <ion-item *ngIf="sintoma?.tratamiento3">{{ sintoma?.tratamiento3 }}</ion-item>
+      <ion-item *ngIf="sintoma?.tratamiento4">{{ sintoma?.tratamiento4 }}</ion-item>
+    </ion-list>
+    <ion-button *ngIf="sintoma.medicamentoId" (click)="verMedicamento(sintoma.medicamentoId)">
+      Ver Medicamento
+    </ion-button>
+  </div>
+</ion-content>

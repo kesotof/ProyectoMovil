@@ -3,14 +3,24 @@
     <ion-title class="titulo">Calendario</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <ion-card class="medic" >
+  <ion-card class="medic" *ngIf="horarios.length === 0">
     <ion-title> Agregar medicamentos </ion-title>
     <ion-label>Empieza a buscar medicamentos y remedios</ion-label>
     <ion-label>Para agendar</ion-label>
-    <ion-button (click)="presentToast('middle')">Agendar</ion-button>
+    <ion-button [routerLink]="['/tabs/wiki']">Buscar Medicamentos</ion-button>
   </ion-card>
+  <ion-list *ngIf="horarios.length > 0">
+    <div *ngFor="let time of groupedHorarios | keyvalue">
+      <ion-item-divider>
+        <ion-label>{{ time.key | date:'HH:mm' }}</ion-label>
+      </ion-item-divider>
+      <ion-item *ngFor="let horario of time.value" (click)="openEditarHorarioModal(horario)">
+        <ion-label>
+          <h2>{{ horario.nombre }}</h2>
+          <p>{{ horario.time }}</p>
+        </ion-label>
+      </ion-item>
+    </div>
+  </ion-list>
 </ion-content>
-
-

@@ -1,55 +1,74 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionManager } from '../../managers/SessionManager';
 import { AlertManager } from '../../managers/AlertManager';
+import { RegisterUserUseCase } from 'src/use-cases/register-user.usecase';
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
   styleUrls: ['./registro.page.scss'],
 })
-export class RegistroPage implements OnInit {
-
-  protected username: string = "";
-  protected email: string = "";
-  protected password1: string = "";
-  protected password2: string = "";
+export class RegistroPage {
+  username: string = "";
+  email: string = "";
+  password: string = "";
 
   constructor(
-    private router : Router,
-    private sessionManager : SessionManager,
-    private alertManager : AlertManager,
+    private router: Router,
+    private alert: AlertManager,
+    private registerUserUseCase: RegisterUserUseCase,
+
   ) { }
 
-  OnRegisterButtonPressed(){
-    // validate non-empty fields
-    if(this.username === "" ||
-      this.password1 === "" ||
-      this.password2 === "" ||
-      this.email === ""){
-      this.alertManager.showAlert("Error", "Por favor llene todos los campos");
+  async OnRegisterButtonPressed() {
+    // first check if the input is valid
+    if (!isValidInput(this.username, this.email, this.password)) {
+      this.alert.showAlert(
+        'Error',
+        'Por favor, llena todos los campos',
+      );
       return;
     }
 
-    // validate passwords
-    if(this.password1 != this.password2){
-      this.alertManager.showAlert("Error", "Las contraseñas no coinciden");
-      return;
+    // then we try to register the user
+    try {
+      const registerResult = await this.registerUserUseCase.register(this.username, this.email, this.password);
+
+      if (registerResult) {
+        this.alert.showAlert(
+          'Registro exitoso',
+          'Ya eres parte de nuestro sistema :)',
+        );
+        this.resetForm();
+        this.router.navigate(['/login']);
+      } else {
+        alert('Algo Falló!');
+      }
+    } catch (error) {
+      this.alert.showAlert(
+        'Error',
+        'Error al registrar: ' + error,
+      );
     }
-    this.sessionManager.register(this.username, this.password1, this.email);
-    this.resetForm();
-    this.alertManager.showAlert("Registro exitoso", "Usuario registrado exitosamente");
-    this.router.navigate(['/login']);
   }
 
-  resetForm(){
+  resetForm() {
     this.username = "";
-    this.password1 = "";
-    this.password2 = "";
+    this.password = "";
     this.email = "";
   }
 
-  ngOnInit() {
-  }
-
 }
+
+// !!! not complete. We need to implement validation per field and 
+// show dynamic css classes to show errors on screen
+function isValidInput(name: string, email: string, password: string) {
+  // Check if the input is not empty
+  if (name === "" || email === "" || password === "") {
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+
