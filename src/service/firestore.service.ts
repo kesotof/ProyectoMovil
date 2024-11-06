@@ -99,7 +99,6 @@ export class FirestoreService {
     const doc = await this.firestore.collection('pastillero').doc(userId).get().toPromise();
     const data = doc?.data() as Pastillero;
     const medicamento = data.medicamentos.find(m => m.medicamentoId === medicamentoId);
-
     if (medicamento) {
       medicamento.horarios = medicamento.horarios.filter(h => h.id !== horarioId);
       if (medicamento.horarios.length === 0) {

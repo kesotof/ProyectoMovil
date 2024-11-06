@@ -20,24 +20,25 @@ export class SplashPage implements OnInit, ViewWillEnter {
     private sessionManager: SessionManager) { }
 
   ngOnInit() {
-    // Initial setup if needed
+
   }
 
   async ViewWillEnter() {
-    await this.checkUser();
-  }
-
-  async checkUser() {
-    await this.loadUser();
-    if (this.user) {
-      this.router.navigate(['/tabs/menu']);
+    const user = await this.sessionManager.getActiveUser();
+    if (user) {
+      this.username = user.name;
+      setTimeout(() => {
+        this.router.navigate(['/tabs/menu']);
+      }, 2000);
     } else {
-      this.router.navigate(['/login']);
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 2000);
     }
   }
 
   async loadUser() {
     this.user = await this.sessionManager.getActiveUser();
-    console.log('User:', this.user); // !!!
+    console.log('User:', this.user);
   }
 }
