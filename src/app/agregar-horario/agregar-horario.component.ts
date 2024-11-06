@@ -16,7 +16,7 @@ export class AgregarHorarioComponent {
   constructor(
     private modalController: ModalController,
     private firestoreService: FirestoreService,
-    private auth: AngularFireAuth
+    private auth: AngularFireAuth,
   ) {
     this.auth.user.subscribe(user => {
       this.userId = user?.uid;
@@ -29,7 +29,6 @@ export class AgregarHorarioComponent {
 
   async agregarHorario() {
     if (!this.selectedTime || !this.userId) return;
-
     try {
       await this.firestoreService.addHorario(this.userId, this.medicina, this.selectedTime);
       this.modalController.dismiss({ success: true });

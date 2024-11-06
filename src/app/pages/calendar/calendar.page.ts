@@ -1,4 +1,3 @@
-// src/app/pages/calendar/calendar.page.ts
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from 'src/service/firestore.service';
 import { ModalController } from '@ionic/angular';
@@ -21,20 +20,22 @@ export class CalendarPage implements OnInit {
     private modalController: ModalController,
     private auth: AngularFireAuth
   ) {
-    this.auth.user.subscribe(user => {
+    this.auth.user.subscribe(async user => {
       this.userId = user?.uid;
       if (this.userId) {
-        this.loadHorarios();
+        await this.loadHorarios();
       }
     });
   }
 
   ngOnInit() {}
 
-  loadHorarios() {
+  //Cargar horarios
+  async loadHorarios() {
     if (!this.userId) return;
 
-    this.firestoreService.getPastillero(this.userId).subscribe((data: any) => {
+    try {
+      const data = await this.firestoreService.getPastillero(this.userId);
       if (data) {
         const pastillero = data as Pastillero;
         this.horarios = [];
@@ -49,16 +50,17 @@ export class CalendarPage implements OnInit {
             });
           });
         });
-
         this.groupHorariosByTime();
       }
-    });
+    } catch (error) {
+      console.error('Error al cargar horarios:', error);
+    }
   }
 
+  //Agrupar horarios por hora y ordenar
   groupHorariosByTime() {
     this.groupedHorarios = {};
     this.horarios.sort((a, b) => a.hora.localeCompare(b.hora));
-
     this.horarios.forEach(horario => {
       if (!this.groupedHorarios[horario.hora]) {
         this.groupedHorarios[horario.hora] = [];
@@ -67,6 +69,7 @@ export class CalendarPage implements OnInit {
     });
   }
 
+  //Abrir modal para editar horario
   async openEditarHorarioModal(horario: any) {
     const modal = await this.modalController.create({
       component: EditarHorarioComponent,
@@ -75,13 +78,11 @@ export class CalendarPage implements OnInit {
         medicamentoId: horario.medicamentoId
       }
     });
-
     modal.onDidDismiss().then((result) => {
       if (result.data?.success) {
         this.loadHorarios();
       }
     });
-
     return await modal.present();
   }
 }
