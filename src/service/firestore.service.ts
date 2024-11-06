@@ -7,7 +7,7 @@ import { User } from 'src/interfaces/User';
   providedIn: 'root'
 })
 export class FirestoreService {
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private firestore: AngularFirestore) { }
 
   // CRUD de pastillero
 
@@ -46,5 +46,8 @@ export class FirestoreService {
     );
     return await firstValueFrom(userDoc);
   }
+
+  // Pastillero methods
+
 
 }
