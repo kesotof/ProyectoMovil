@@ -9,12 +9,12 @@
 
 <ion-content>
   <ion-card *ngIf="medicina">
-    <img [src]="medicina?.imagen" alt="{{ medicina?.nombre }}"/>
+    <img [src]="medicina?.imagen" alt="{{ medicina?.nombre }}" />
     <ion-card-content>
       <div class="icons">
         <div class="icon">
           <div class="circle">
-            <img [src]="medicina?.tipoImagen" alt="{{ medicina?.tipo }}"/>
+            <img [src]="medicina?.tipoImagen" alt="{{ medicina?.tipo }}" />
           </div>
           <p>{{ medicina?.tipo }}</p>
         </div>
@@ -27,7 +27,9 @@
       </div>
       <ion-card>
         <ion-item lines="none" (click)="toggleSection('para_que_sirve')">
-          <ion-label>Para qué sirve</ion-label>
+          <ion-label>
+            <h6>Para qué sirve</h6>
+          </ion-label>
           <ion-icon slot="end" name="add" color="primary"></ion-icon>
         </ion-item>
         <div *ngIf="expandedSection === 'para_que_sirve'" class="tex">
@@ -36,7 +38,9 @@
       </ion-card>
       <ion-card>
         <ion-item lines="none" (click)="toggleSection('como_usar')">
-          <ion-label>Cómo usar</ion-label>
+          <ion-label>
+            <h6>Cómo usar</h6>
+          </ion-label>
           <ion-icon slot="end" name="add" color="primary"></ion-icon>
         </ion-item>
         <div *ngIf="expandedSection === 'como_usar'" class="tex">
@@ -45,14 +49,16 @@
       </ion-card>
       <ion-card>
         <ion-item lines="none" (click)="toggleSection('quien_no_debe_consumir')">
-          <ion-label>Quién no debe consumir</ion-label>
+          <ion-label>
+            <h6>Quién no debe consumir</h6>
+          </ion-label>
           <ion-icon slot="end" name="add" color="primary"></ion-icon>
         </ion-item>
         <div *ngIf="expandedSection === 'quien_no_debe_consumir'" class="tex">
           <p>{{ medicina?.quien_no_debe_consumir }}</p>
         </div>
       </ion-card>
-      <ion-button (click)="openAgregarHorarioModal()">Agregar al Pastillero</ion-button>
+      <ion-button expand="block" (click)="openAgregarHorarioModal()">Agregar al Pastillero</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>
