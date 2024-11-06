@@ -11,10 +11,10 @@
   <ion-list>
     <ion-item *ngFor="let sintoma of sintomas" (click)="verDetalle(sintoma.id)">
       <ion-avatar slot="start">
-        <img [src]="sintoma.imagen" alt="{{ sintoma.nombre }}"/>
+        <img [src]="sintoma.imagen" alt="{{ sintoma.nombre }}" />
       </ion-avatar>
       <ion-label>
-        <h2>{{ sintoma.nombre }}</h2>
+        <h4>{{ sintoma.nombre }}</h4>
       </ion-label>
     </ion-item>
   </ion-list>
