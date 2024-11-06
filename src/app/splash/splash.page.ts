@@ -33,7 +33,7 @@ export class SplashPage implements OnInit, ViewWillEnter {
     } else {
       setTimeout(() => {
         this.router.navigate(['/login']);
-      }, 2000);
+      },);
     }
   }
 

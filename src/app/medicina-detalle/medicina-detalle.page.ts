@@ -48,7 +48,6 @@ export class MedicinaDetallePage implements OnInit {
 
     modal.onDidDismiss().then((result) => {
       if (result.data) {
-        // Aquí puedes manejar el horario agregado
         console.log('Horario agregado:', result.data);
       }
     });

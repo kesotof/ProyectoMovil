@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FirestoreService } from 'src/service/firestore.service';
 import { ModalController } from '@ionic/angular';
 import { EditarHorarioComponent } from '../../editar-horario/editar-horario.component';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Pastillero } from 'src/interfaces/Pastillero';
 
 @Component({
@@ -14,42 +14,50 @@ export class CalendarPage implements OnInit {
   horarios: any[] = [];
   groupedHorarios: { [key: string]: any[] } = {};
   userId: string | undefined;
+  private readonly STORAGE_KEY = 'horarios';
 
   constructor(
+    private auth: AngularFireAuth,
     private firestoreService: FirestoreService,
-    private modalController: ModalController,
-    private auth: AngularFireAuth
+    private modalController: ModalController
   ) {
-    this.auth.user.subscribe(async user => {
-      this.userId = user?.uid;
-      if (this.userId) {
-        await this.loadHorarios();
+    this.loadHorarios();
+  }
+  ngOnInit() {
+    this.auth.user.subscribe(user => {
+      if (user) {
+        this.userId = user.uid;
+        this.loadHorarios();
       }
     });
   }
 
-  ngOnInit() {}
-
-  //Cargar horarios
   async loadHorarios() {
+    const cachedData = localStorage.getItem(this.STORAGE_KEY);
+    if (cachedData) {
+      try {
+        this.horarios = JSON.parse(cachedData);
+        this.groupHorariosByTime();
+      } catch {
+        localStorage.removeItem(this.STORAGE_KEY);
+      }
+    }
     if (!this.userId) return;
-
     try {
       const data = await this.firestoreService.getPastillero(this.userId);
       if (data) {
         const pastillero = data as Pastillero;
-        this.horarios = [];
+        this.horarios = pastillero.medicamentos.reduce((acc: any[], med) => {
+          const horarios = med.horarios.map(h => ({
+            id: h.id,
+            hora: h.hora,
+            nombre: med.nombre,
+            medicamentoId: med.medicamentoId
+          }));
+          return [...acc, ...horarios];
+        }, []);
 
-        pastillero.medicamentos.forEach(medicamento => {
-          medicamento.horarios.forEach(horario => {
-            this.horarios.push({
-              id: horario.id,
-              hora: horario.hora,
-              nombre: medicamento.nombre,
-              medicamentoId: medicamento.medicamentoId
-            });
-          });
-        });
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.horarios));
         this.groupHorariosByTime();
       }
     } catch (error) {
@@ -57,7 +65,6 @@ export class CalendarPage implements OnInit {
     }
   }
 
-  //Agrupar horarios por hora y ordenar
   groupHorariosByTime() {
     this.groupedHorarios = {};
     this.horarios.sort((a, b) => a.hora.localeCompare(b.hora));
@@ -69,7 +76,6 @@ export class CalendarPage implements OnInit {
     });
   }
 
-  //Abrir modal para editar horario
   async openEditarHorarioModal(horario: any) {
     const modal = await this.modalController.create({
       component: EditarHorarioComponent,
@@ -84,5 +90,11 @@ export class CalendarPage implements OnInit {
       }
     });
     return await modal.present();
+  }
+
+  ionViewWillEnter() {
+    if (this.userId) {
+      this.loadHorarios();
+    }
   }
 }
