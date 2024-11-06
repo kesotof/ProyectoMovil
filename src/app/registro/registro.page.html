@@ -3,34 +3,27 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>registro</ion-title>
+    <ion-title>Registro</ion-title>
   </ion-toolbar>
 </ion-header>
 
-
-<ion-content>
+<ion-content scroll-y="false" class="center-content">
   <ion-card>
-    <ion-card-header>
-      <ion-card-title>Registro</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <form>
-        <ion-item>
-          <ion-label position="floating">Nombre de Usuario</ion-label>
-          <ion-input [(ngModel)]="username" name="username"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Email</ion-label>
-          <ion-input type="email" [(ngModel)]="email" name="email"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Contraseña</ion-label>
-          <ion-input type="password" [(ngModel)]="password" name="password1"></ion-input>
-        </ion-item>
-        <br>
-        <ion-button (click)="OnRegisterButtonPressed()">Registrarse
-        </ion-button>
-      </form>
-    </ion-card-content>
+    <ion-list>
+      <ion-item>
+        <ion-input label="Nombre de Usuario" label-placement="floating" type="text" [(ngModel)]="username"
+          name="username"></ion-input>
+      </ion-item>
+      <br>
+      <ion-item>
+        <ion-input label="Email" label-placement="floating" type="email" [(ngModel)]="email" name="email"></ion-input>
+      </ion-item>
+      <br>
+      <ion-item>
+        <ion-input label="Contraseña" label-placement="floating" type="password" [(ngModel)]="password"
+          name="password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="full" (click)="OnRegisterButtonPressed()">Registrarse</ion-button>
   </ion-card>
 </ion-content>

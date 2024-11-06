@@ -27,6 +27,7 @@ import { Vid1Component } from './component/vid1/vid1.component';
 import { Vid2Component } from './component/vid2/vid2.component';
 import { AgregarHorarioComponent } from './agregar-horario/agregar-horario.component';
 import { EditarHorarioComponent } from './editar-horario/editar-horario.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { EditarHorarioComponent } from './editar-horario/editar-horario.componen
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), 
     provideAuth(() => getAuth()), 
     provideDatabase(() => getDatabase()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
