@@ -32,16 +32,22 @@ export class FirestoreService {
 
   //Obtener pastillero
   async getPastillero(userId: string) {
-    const localPastillero = await this.localStorage.get(this.PASTILLERO_KEY);
-    if (localPastillero) {
-      return localPastillero;
+    try {
+      const localPastillero = await this.localStorage.get(this.PASTILLERO_KEY);
+      if (localPastillero && localPastillero.pastilleroId === userId) {
+        return localPastillero;
+      }
+      const pastilleroDoc = await this.firestore.collection('pastillero').doc(userId).get().toPromise();
+      const pastillero = pastilleroDoc?.data() as Pastillero;
+      if (pastillero) {
+        await this.localStorage.set(this.PASTILLERO_KEY, pastillero);
+        return pastillero;
+      }
+      return null;
+    } catch (error) {
+      console.error('Error al obtener pastillero:', error);
+      throw error;
     }
-    const pastilleroDoc = await this.firestore.collection('pastillero').doc(userId).get().toPromise();
-    const pastillero = pastilleroDoc?.data() as Pastillero;
-    if (pastillero) {
-      await this.localStorage.set(this.PASTILLERO_KEY, pastillero);
-    }
-    return pastillero;
   }
 
   //agregar un horario al medicamento
