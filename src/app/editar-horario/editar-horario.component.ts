@@ -1,4 +1,3 @@
-// src/app/editar-horario/editar-horario.component.ts
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FirestoreService } from 'src/service/firestore.service';
@@ -26,7 +25,6 @@ export class EditarHorarioComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Asumimos que horario ahora tiene la estructura { id: string, hora: string }
     this.selectedTime = this.horario.hora;
   }
 
@@ -36,7 +34,6 @@ export class EditarHorarioComponent implements OnInit {
 
   editarHorario() {
     if (!this.userId || !this.selectedTime || !this.medicamentoId) return;
-
     this.firestoreService.updateHorario(
       this.userId,
       this.medicamentoId,
