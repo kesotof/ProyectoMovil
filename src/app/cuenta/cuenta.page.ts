@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionManager } from 'src/service/session.controller';
+import { LogoutUserUseCase } from 'src/use-cases/logout-user.usecase';
 
 @Component({
   selector: 'app-cuenta',
@@ -8,13 +8,21 @@ import { SessionManager } from 'src/service/session.controller';
   styleUrls: ['./cuenta.page.scss'],
 })
 export class CuentaPage {
-  constructor(private router: Router, private sessionManager: SessionManager) { }
+  constructor(private router: Router, private logoutUserUC: LogoutUserUseCase) { }
 
   async onLogout() {
     // remove the user from the session
-    await this.sessionManager.logout();
-    // and navigate to login page
-    this.router.navigate(['/splash']);
+    try {
+      let logoutResult = await this.logoutUserUC.logout();
+      if (!logoutResult) {
+        throw Error("Algo fallo!");
+      }
+      else {
+        this.router.navigate(['/splash']);
+      }
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+    }
   }
 
 }
