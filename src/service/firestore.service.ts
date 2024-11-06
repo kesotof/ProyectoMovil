@@ -85,6 +85,9 @@ export class FirestoreService {
 
         if (medicamento) {
           medicamento.horarios = medicamento.horarios.filter(h => h.id !== horarioId);
+          if (medicamento.horarios.length === 0) {
+            data.medicamentos = data.medicamentos.filter(m => m.medicamentoId !== medicamentoId);
+          }
           return this.firestore.collection('pastillero').doc(userId).update(data);
         }
         return Promise.reject('Medicamento no encontrado');
