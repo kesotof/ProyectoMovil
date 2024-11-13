@@ -34,6 +34,7 @@
     "@ionic/angular": "^8.0.0",
     "@ionic/storage": "^4.0.0",
     "@ionic/storage-angular": "^4.0.0",
+    "@supabase/supabase-js": "^2.46.1",
     "cordova-plugin-youtube-video-player": "^2.4.0",
     "firebase": "^10.14.1",
     "ionicons": "^7.0.0",

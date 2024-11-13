@@ -2,18 +2,23 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-		  <ion-back-button defaultHref="/tabs/menu"></ion-back-button>
-		</ion-buttons>
+      <ion-back-button defaultHref="/tabs/menu"></ion-back-button>
+    </ion-buttons>
     <ion-title class="titulo">Cuenta</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="content">
   <ion-title class="subt">General</ion-title>
+  <ion-item>
+    <ion-label position="floating">Cambiar nombre de usuario</ion-label>
+    <ion-input [(ngModel)]="newUserName"></ion-input>
+  </ion-item>
+  <ion-button expand="full" (click)="updateUserName()">Actualizar Usuario</ion-button>
   <ion-button fill="clear" expand="full" class="btn" (click)="onLogout()">
     <span class="material-symbols-outlined">
-	logout
-	</span>
-    <ion-label class="lab">Cerrar sesion</ion-label>
+      logout
+    </span>
+    <ion-label class="lab">Cerrar sesión</ion-label>
   </ion-button>
 </ion-content>
