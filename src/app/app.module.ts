@@ -26,10 +26,11 @@ import { Vid2Component } from './component/vid2/vid2.component';
 import { AgregarHorarioComponent } from './agregar-horario/agregar-horario.component';
 import { EditarHorarioComponent } from './editar-horario/editar-horario.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MapModalComponent } from './component/map-modal/map-modal.component';
 
 
 @NgModule({
-  declarations: [AppComponent, Vid1Component, Vid2Component, AgregarHorarioComponent, EditarHorarioComponent],
+  declarations: [AppComponent, Vid1Component, Vid2Component, AgregarHorarioComponent, EditarHorarioComponent, MapModalComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
