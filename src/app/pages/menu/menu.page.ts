@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import { Router } from '@angular/router';
+import { IonModal } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
 
 @Component({
   selector: 'app-menu',
@@ -7,11 +9,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.page.scss'],
 })
 export class MenuPage implements OnInit {
-
+  
   constructor( private router:Router) {}
-  navigate(){
-  this.router.navigate(['/cuenta'])
+    navigate(){
+    this.router.navigate(['/cuenta'])
   }
+
+  @ViewChild(IonModal) modal!: IonModal;
 
   ngOnInit() {
   }
@@ -19,6 +23,8 @@ export class MenuPage implements OnInit {
   contador: number = 0;
   vasos: number[] = [];
   cantidad: string = '';
+  message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
+  name: string = "";
 
   crearVaso() {
   if (this.contador < 1000) {
@@ -29,4 +35,23 @@ export class MenuPage implements OnInit {
    }
 
   alertButtons = ['Cerrar'];
+
+  openMapButtonClicked() {
+    console.log('Map button clicked!');
+  }
+
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
+
+  confirm() {
+    this.modal.dismiss(this.name, 'confirm');
+  }
+
+  onWillDismiss(event: Event) {
+    const ev = event as CustomEvent<OverlayEventDetail<string>>;
+    if (ev.detail.role === 'confirm') {
+      this.message = `Hello, ${ev.detail.data}!`;
+    }
+  }
 }
