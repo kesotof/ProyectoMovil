@@ -4,8 +4,6 @@
 
 export const environment = {
   production: false,
-  supabaseUrl: 'https://zfltpjpuimnigwrsvgkq.supabase.co',
-  supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpmbHRwanB1aW1uaWd3cnN2Z2txIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE0MzQwMDIsImV4cCI6MjA0NzAxMDAwMn0.nO_3SPzcuFapppyoHNqkmWW_uwBltakRPxXZBU83I7I',
   firebaseConfig : {
     apiKey: "AIzaSyBo8ewM6vRstgG57QRXu-EGNcC6cyp0hjs",
     authDomain: "proyectoapp-50f1b.firebaseapp.com",

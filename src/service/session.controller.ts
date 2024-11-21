@@ -52,7 +52,6 @@ export class SessionManager {
                     email: email,
                     name: name,
                     pastilleroId: null,
-                    profileImageUrl: ''
                 };
                 return newUser;
             }
@@ -105,7 +104,6 @@ export class SessionManager {
                         email: '',
                         name: '',
                         pastilleroId: null,
-                        profileImageUrl: ''
                     };
                     await this.saveActiveUser();
                 }

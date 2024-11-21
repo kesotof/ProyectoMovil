@@ -12,7 +12,6 @@ import { FirestoreService } from 'src/service/firestore.service';
 export class CuentaPage implements OnInit {
   currentUserName: string = '';
   newUserName: string = '';
-  profileImageUrl: string = '';
 
   constructor(
     private router: Router,
@@ -23,7 +22,6 @@ export class CuentaPage implements OnInit {
 
   ngOnInit() {
     this.loadUserName();
-    this.loadUserProfileImage();
   }
 
   async loadUserName() {
@@ -31,17 +29,7 @@ export class CuentaPage implements OnInit {
     this.newUserName = this.currentUserName || '';
   }
 
-  async loadUserProfileImage() {
-    try {
-      const userId = await this.firestoreService.getCurrentUserId();
-      if (userId) {
-        const user = await this.firestoreService.getUser(userId);
-        this.profileImageUrl = user.profileImageUrl || '';
-      }
-    } catch (error) {
-      console.error('Error al cargar la imagen de perfil:', error);
-    }
-  }
+
 
   async updateUserName() {
     try {

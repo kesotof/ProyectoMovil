@@ -3,5 +3,4 @@ export interface User {
     email: string;
     uid: string|null;
     pastilleroId: string|null;
-    profileImageUrl: string;
 }
