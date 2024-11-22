@@ -10,11 +10,14 @@
 
 <ion-content class="content">
   <ion-title class="subt">General</ion-title>
-  <ion-item>
-    <ion-label position="floating">Cambiar nombre de usuario</ion-label>
-    <ion-input [(ngModel)]="newUserName"></ion-input>
-  </ion-item>
-  <ion-button expand="full" (click)="updateUserName()">Actualizar Usuario</ion-button>
+
+  <ion-button fill="clear" expand="full" class="btn" [routerLink]="['/perfil']">
+    <span class="material-symbols-outlined">
+        manage_accounts
+    </span>
+    <ion-label class="per">Editar perfil</ion-label>
+  </ion-button>
+
   <ion-button fill="clear" expand="full" class="btn" (click)="onLogout()">
     <span class="material-symbols-outlined">
       logout

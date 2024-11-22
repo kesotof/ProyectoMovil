@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LogoutUserUseCase } from 'src/use-cases/logout-user.usecase';
-import { UpdateUserNameUseCase } from 'src/use-cases/updateName-user.usecase';
-import { FirestoreService } from 'src/service/firestore.service';
 
 @Component({
   selector: 'app-cuenta',
@@ -10,38 +8,13 @@ import { FirestoreService } from 'src/service/firestore.service';
   styleUrls: ['./cuenta.page.scss'],
 })
 export class CuentaPage implements OnInit {
-  currentUserName: string = '';
-  newUserName: string = '';
 
   constructor(
     private router: Router,
     private logoutUserUC: LogoutUserUseCase,
-    private updateUserNameUC: UpdateUserNameUseCase,
-    private firestoreService: FirestoreService
   ) {}
 
   ngOnInit() {
-    this.loadUserName();
-  }
-
-  async loadUserName() {
-    this.currentUserName = (await this.updateUserNameUC.getUserName()) ?? '';
-    this.newUserName = this.currentUserName || '';
-  }
-
-
-
-  async updateUserName() {
-    try {
-      const result = await this.updateUserNameUC.updateUserName(this.newUserName);
-      if (result) {
-        console.log('Nombre de usuario actualizado correctamente');
-      } else {
-        console.error('Error al actualizar el nombre de usuario');
-      }
-    } catch (error) {
-      console.error('Error al actualizar el nombre de usuario:', error);
-    }
   }
 
   async onLogout() {

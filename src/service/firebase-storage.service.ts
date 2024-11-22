@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL, listAll, deleteObject } from 'firebase/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +41,16 @@ export class FirebaseStorageService {
       return await getDownloadURL(imageRef);
     } catch (error) {
       console.error('Error al subir imagen:', error);
+      throw error;
+    }
+  }
+
+  async deleteImage(path: string): Promise<void> {
+    try {
+      const storageRef = ref(this.storage, path);
+      await deleteObject(storageRef);
+    } catch (error) {
+      console.error('Error al eliminar la imagen:', error);
       throw error;
     }
   }
