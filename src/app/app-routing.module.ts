@@ -50,7 +50,11 @@ const routes: Routes = [
   {
     path: 'medicina-detalle/:id',
     loadChildren: () => import('./medicina-detalle/medicina-detalle.module').then(m => m.MedicinaDetallePageModule)
+  },  {
+    path: 'perfil',
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
   },
+
 ];
 
 @NgModule({
