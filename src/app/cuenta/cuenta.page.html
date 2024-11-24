@@ -2,18 +2,26 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-		  <ion-back-button defaultHref="/tabs/menu"></ion-back-button>
-		</ion-buttons>
+      <ion-back-button defaultHref="/tabs/menu"></ion-back-button>
+    </ion-buttons>
     <ion-title class="titulo">Cuenta</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="content">
   <ion-title class="subt">General</ion-title>
+
+  <ion-button fill="clear" expand="full" class="btn" [routerLink]="['/perfil']">
+    <span class="material-symbols-outlined">
+        manage_accounts
+    </span>
+    <ion-label class="per">Editar perfil</ion-label>
+  </ion-button>
+
   <ion-button fill="clear" expand="full" class="btn" (click)="onLogout()">
     <span class="material-symbols-outlined">
-	logout
-	</span>
-    <ion-label class="lab">Cerrar sesion</ion-label>
+      logout
+    </span>
+    <ion-label class="lab">Cerrar sesión</ion-label>
   </ion-button>
 </ion-content>

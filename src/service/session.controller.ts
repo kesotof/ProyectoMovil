@@ -48,10 +48,11 @@ export class SessionManager {
             let userCredential = await this.afAuth.register(email, password);
             if (userCredential) {
                 let newUser: UserApp = {
-                    uid: userCredential.user.uid,
-                    email: email,
-                    name: name,
-                    pastilleroId: null
+                  uid: userCredential.user.uid,
+                  email: email,
+                  name: name,
+                  pastilleroId: null,
+                  photoURL: ""
                 };
                 return newUser;
             }
@@ -104,6 +105,7 @@ export class SessionManager {
                         email: '',
                         name: '',
                         pastilleroId: null,
+                        photoURL: ""
                     };
                     await this.saveActiveUser();
                 }
