@@ -13,12 +13,22 @@ export class MapModalComponent {
 
   constructor(private modalController: ModalController) {}
 
+  public gpsLocation: string = "111";
+
   confirm() {
     this.modalController.dismiss(this.name, 'confirm');
   }
 
   cancel() {
     this.modalController.dismiss(null, 'cancel');
+  }
+
+  SMButtonClicked() {
+    this.gpsLocation += "SM";
+  }
+  
+  AmbulanceButtonClicked() {
+    throw new Error('Method not implemented.');
   }
 
 }
