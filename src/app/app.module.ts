@@ -18,6 +18,9 @@ import { AngularFireModule } from '@angular/fire/compat';
 // Environment
 import { environment } from 'src/environments/environment';
 
+// Map
+import { LeafletModule } from '@bluehalo/ngx-leaflet';
+
 // App components
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -27,17 +30,27 @@ import { AgregarHorarioComponent } from './agregar-horario/agregar-horario.compo
 import { EditarHorarioComponent } from './editar-horario/editar-horario.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MapModalComponent } from './component/map-modal/map-modal.component';
+import { MapComponent } from './component/map/map.component';
 
 
 @NgModule({
-  declarations: [AppComponent, Vid1Component, Vid2Component, AgregarHorarioComponent, EditarHorarioComponent, MapModalComponent],
+  declarations: [
+    AppComponent,
+    Vid1Component,
+    Vid2Component,
+    AgregarHorarioComponent,
+    EditarHorarioComponent,
+    MapModalComponent,
+    MapComponent
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    FormsModule
+    FormsModule,
+    LeafletModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -50,4 +63,4 @@ import { MapModalComponent } from './component/map-modal/map-modal.component';
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule {}
+export class AppModule { }
