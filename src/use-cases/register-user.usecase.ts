@@ -12,7 +12,7 @@ export class RegisterUserUseCase {
         private firestoreService: FirestoreService
     ) { }
 
-    async register(name: string, email: string, password: string): Promise<boolean> {
+    async register(name: string, email: string, password: string, photoURL: string): Promise<boolean> {
         // try to register using SessionManager
         try {
             const newUser = await this.sessionManager.register(email, password, name);
@@ -23,6 +23,7 @@ export class RegisterUserUseCase {
 
             // add pastilleroId to the user
             newUser.pastilleroId = newUser.uid;
+            newUser.photoURL = photoURL;
 
             // save the user in firestore
             await this.firestoreService.addUser(newUser);

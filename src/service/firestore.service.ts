@@ -117,6 +117,11 @@ export class FirestoreService {
     return await this.firestore.doc(path).set(user);
   }
 
+  public async getCurrentUserId(): Promise<string | null> {
+    const activeUser = await this.localStorage.get('activeUser');
+    return activeUser ? activeUser.uid : null;
+  }
+
   public async getUser(id: any): Promise<User> {
     const userDoc = this.firestore.collection('users').doc(id).snapshotChanges().pipe(
       map(action => {

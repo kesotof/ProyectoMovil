@@ -10,6 +10,11 @@
 <ion-content scroll-y="false" class="center-content">
   <ion-card>
     <ion-list>
+      <div class="user-image-container">
+        <ion-avatar (click)="openImageSelection($event)">
+          <img [src]="selectedImage" alt="Profile Image">
+        </ion-avatar>
+      </div>
       <ion-item>
         <ion-input label="Nombre de Usuario" label-placement="floating" type="text" [(ngModel)]="username"
           name="username"></ion-input>

@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/menu"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mi Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="profile-container">
+    <ion-avatar class="profile-image" (click)="onProfileImagePressed()">
+      <img [src]="currentImage || ''" alt="Foto de perfil">
+    </ion-avatar>
+    <ion-text color="medium" class="change-photo-text">
+      <p>Toca para cambiar la foto</p>
+    </ion-text>
+  </div>
+  <ion-item>
+    <ion-label position="floating">Cambiar nombre de usuario</ion-label>
+    <ion-input [(ngModel)]="newUserName"></ion-input>
+  </ion-item>
+  <ion-button expand="full" (click)="updateUserName()">Actualizar Usuario</ion-button>
+</ion-content>

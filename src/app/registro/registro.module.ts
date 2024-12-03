@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ImageSelectorComponent } from './image-selector.component';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -16,6 +17,6 @@ import { RegistroPage } from './registro.page';
     IonicModule,
     RegistroPageRoutingModule
   ],
-  declarations: [RegistroPage]
+  declarations: [RegistroPage,ImageSelectorComponent]
 })
 export class RegistroPageModule {}
