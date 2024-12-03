@@ -20,9 +20,9 @@
   </ion-button>
 
   <!-- map to nearest hospital -->
-  <h3>Test</h3>
+  <h3>El hospital mas cercano</h3>
   <div style="height: 400px;">
-    <app-map [initCoordinates]="{lat: 51.5074, lng: -25.1278}"></app-map>
+    <app-map [mapCenter]="mapCenter" [zoom]="zoom" [markers]="markers" [isCenterMarked]="true"></app-map>
   </div>
 
 </ion-content>
