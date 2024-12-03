@@ -11,6 +11,7 @@
 </ion-header>
 
 <ion-content>
+  <!-- beber agua -->
   <h3>Beber agua</h3>
   <ion-card>
     <ion-button class="bntn" fill="clear" id="present-alert"><span class="material-symbols-outlined">
@@ -39,6 +40,16 @@
       </div>
     </div>
   </ion-card>
+
+  <!-- test mapa -->
+  <div>
+    <ion-button id="open-modal" color="light" expand="full" (click)="openMapButtonClicked()">
+      <ion-icon name="map-outline"></ion-icon>
+      Abrir Mapa
+    </ion-button>
+  </div>
+
+  <!-- contenido -->
   <div class="cont">
     <h3>Contenido</h3>
     <ion-grid>

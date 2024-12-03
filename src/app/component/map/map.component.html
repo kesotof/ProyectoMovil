@@ -1,0 +1,7 @@
+<div class="map-container">
+  <!-- Loading indicator -->
+  <ion-spinner *ngIf="isLoading" class="map-loader"></ion-spinner>
+
+  <!-- Map -->
+  <div id="map" [class.loading]="isLoading"></div>
+</div>

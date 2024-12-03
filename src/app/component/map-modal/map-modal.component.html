@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Necesito Ayuda</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [strong]="true">Salir</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <!-- emergency call buttons -->
+  <ion-button (click)="AmbulanceButtonClicked()" expand="block" color="danger">
+    <ion-icon name="call"></ion-icon>
+    Llamar a una ambulancia 131
+  </ion-button>
+
+  <!-- suicide prevention call emergency -->
+  <ion-button (click)="SMButtonClicked()" expand="block" color="warning">
+    <ion-icon name="call"></ion-icon>
+    Llamar por Salud Mental 600 360 7777
+  </ion-button>
+
+  <!-- map to nearest hospital -->
+  <h3>El hospital mas cercano</h3>
+  <div style="height: 400px;">
+    <app-map [mapCenter]="mapCenter" [zoom]="zoom" [markers]="markers" [isCenterMarked]="true"></app-map>
+  </div>
+
+</ion-content>
