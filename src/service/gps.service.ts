@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Capacitor } from "@capacitor/core";
 import { Geolocation, PermissionStatus } from "@capacitor/geolocation";
 
 @Injectable({
@@ -9,8 +10,30 @@ export class GeolocationService {
 
     constructor() { }
 
-    async checkPermissions(): Promise<PermissionStatus> {
-        return await Geolocation.checkPermissions();
+    public async checkGeolocationPermission(): Promise<boolean> {
+        // Check if running on web or mobile
+        if (Capacitor.getPlatform() === 'web') {
+            // Browser permission check
+            if ('permissions' in navigator) {
+                try {
+                    const result = await navigator.permissions.query({ name: 'geolocation' });
+                    return result.state === 'granted';
+                } catch {
+                    // Fallback for older browsers
+                    return 'geolocation' in navigator;
+                }
+            }
+            return 'geolocation' in navigator;
+        } else {
+            // Mobile permission check using Capacitor
+            try {
+                const status = await Geolocation.checkPermissions();
+                return status.location === 'granted';
+            } catch (error) {
+                console.error('Error checking permissions:', error);
+                return false;
+            }
+        }
     }
 
     async requestPermissions(): Promise<PermissionStatus> {
@@ -20,10 +43,10 @@ export class GeolocationService {
     async getCurrentLocation(): Promise<{ latitude: number; longitude: number }> {
         try {
             // Check permissions first
-            const permissionStatus = await this.checkPermissions();
+            const permissionStatus = await this.checkGeolocationPermission();
 
             // If no permission, request it
-            if (permissionStatus.location !== 'granted') {
+            if (permissionStatus) {
                 const requested = await this.requestPermissions();
                 if (requested.location !== 'granted') {
                     throw new Error('Location permission denied');

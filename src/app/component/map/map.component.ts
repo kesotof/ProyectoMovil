@@ -62,9 +62,9 @@ export class MapComponent implements OnInit, OnDestroy, OnChanges {
   private async setupLocationAndMap(): Promise<void> {
     try {
       // Check permissions first
-      const permStatus = await this.geolocationService.checkPermissions();
+      const permStatus = await this.geolocationService.checkGeolocationPermission();
 
-      if (permStatus.location === 'prompt') {
+      if (permStatus) {
         // Show some UI explaining why we need location
         // Then request permission
         await this.geolocationService.requestPermissions();
