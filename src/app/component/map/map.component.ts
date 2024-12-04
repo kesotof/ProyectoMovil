@@ -65,9 +65,8 @@ export class MapComponent implements OnInit, OnDestroy, OnChanges {
       const permStatus = await this.geolocationService.checkGeolocationPermission();
 
       if (permStatus) {
-        // Show some UI explaining why we need location
-        // Then request permission
-        await this.geolocationService.requestPermissions();
+        // request permission
+        await this.geolocationService.requestGeolocationPermission();
       }
 
       // Initialize map with current location

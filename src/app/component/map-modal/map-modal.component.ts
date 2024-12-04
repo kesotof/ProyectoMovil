@@ -35,7 +35,7 @@ export class MapModalComponent {
   public randomNumber: number = 0;
 
   ngOnInit() {
-    this.zoom = 6;
+    this.zoom = 5;
   }
   // Array to hold marker coordinates (hospitals, clinics etc)
   public markers: Coordinates[] = [
