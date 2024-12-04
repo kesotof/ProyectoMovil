@@ -59,6 +59,28 @@ export class MapComponent implements OnInit, OnDestroy, OnChanges {
     center: latLng(this.initCoordinates.lat, this.initCoordinates.lng)
   };
 
+  private async setupLocationAndMap(): Promise<void> {
+    try {
+      // Check permissions first
+      const permStatus = await this.geolocationService.checkPermissions();
+
+      if (permStatus.location === 'prompt') {
+        // Show some UI explaining why we need location
+        // Then request permission
+        await this.geolocationService.requestPermissions();
+      }
+
+      // Initialize map with current location
+      this.currentLocation = await this.getCurrentLocation();
+      await this.initializeMap(this.currentLocation);
+
+    } catch (error) {
+      console.error('Location setup failed:', error);
+      // Fallback to default location
+      this.initializeMap(this.fallbackCoordinates);
+    }
+  }
+
   async ngOnInit(): Promise<void> {
     if (this.isMapInitialized) {
       return;
@@ -66,15 +88,10 @@ export class MapComponent implements OnInit, OnDestroy, OnChanges {
 
     this.mapLoadingChange.emit(true);
     try {
-      // get center
-      this.initCoordinates = await this.getCurrentLocation();
-
-      await this.initializeMap(this.initCoordinates);
-      await this.loadTiles();
-      this.refreshMap();
+      await this.setupLocationAndMap();
       this.isMapInitialized = true;
     } catch (error) {
-      console.error('Error initializing map:', error);
+      console.error('Map initialization failed:', error);
     } finally {
       this.isLoading = false;
       this.mapLoadingChange.emit(false);
