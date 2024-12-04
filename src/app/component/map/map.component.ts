@@ -88,10 +88,11 @@ export class MapComponent implements OnInit, OnDestroy, OnChanges {
       // Check permissions first
       const permStatus = await this.geolocationService.checkGeolocationPermission();
 
-      if (permStatus) {
+      //if (!permStatus) {
         // request permission
-        await this.geolocationService.requestGeolocationPermission();
-      }
+        //await this.geolocationService.requestGeolocationPermission();
+      //}
+      await this.geolocationService.requestGeolocationPermission();
 
       // Initialize map with current location
       this.currentLocation = await this.getCurrentLocation();

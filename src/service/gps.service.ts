@@ -27,6 +27,7 @@ export class GeolocationService {
         } else {
             // Mobile permission check using Capacitor
             try {
+                await this.requestGeolocationPermission();
                 const status = await Geolocation.checkPermissions();
                 return status.location === 'granted';
             } catch (error) {
