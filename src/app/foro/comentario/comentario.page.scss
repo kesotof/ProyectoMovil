@@ -1,0 +1,31 @@
+ion-card {
+  margin: 10px;
+}
+
+ion-avatar {
+  width: 60px;
+  height: 60px;
+}
+
+ion-label {
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+p {
+  margin: 5px 0 0;
+  font-size: 1em;
+}
+
+.no-comments {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}

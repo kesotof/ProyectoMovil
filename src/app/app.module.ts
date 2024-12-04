@@ -33,6 +33,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MapModalComponent } from './component/map-modal/map-modal.component';
 import { MapComponent } from './component/map/map.component';
 
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { MapComponent } from './component/map/map.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     FormsModule,
     LeafletModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
