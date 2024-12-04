@@ -3,6 +3,8 @@ import * as L from 'leaflet';
 import { latLng, tileLayer, LatLng } from 'leaflet';
 import { GeolocationService } from 'src/service/gps.service';
 
+import { GeocodingService } from 'src/service/geocoding.service';
+
 interface Coordinates {
   lat: number;
   lng: number;
@@ -24,7 +26,10 @@ interface MapOptions {
 })
 export class MapComponent implements OnInit, OnDestroy, OnChanges {
 
-  constructor(private geolocationService: GeolocationService) { }
+  constructor(
+    private geolocationService: GeolocationService,
+    private geocodingService: GeocodingService
+  ) { }
 
   private map: L.Map | null = null;
   private currentLocation: Coordinates = { lat: 0, lng: 0 };
@@ -33,6 +38,25 @@ export class MapComponent implements OnInit, OnDestroy, OnChanges {
   private initCoordinates: Coordinates = this.fallbackCoordinates;
   public isLoading = true;
   private currentMarkers: L.Marker[] = [];
+
+  // center user marker
+  private centerMarker: L.Marker | null = null;
+  private readonly userIcon = L.icon({
+    iconUrl: 'assets/icon/marker-user.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+  });
+
+  // hospital marker
+  private hospitalMarker: L.Marker | null = null;
+  private readonly hospitalIcon = L.icon({
+    iconUrl: 'assets/icon/marker-hospital.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+  });
+
 
   @Input() mapCenter!: Coordinates;
   @Input() zoom!: number;
@@ -62,12 +86,11 @@ export class MapComponent implements OnInit, OnDestroy, OnChanges {
   private async setupLocationAndMap(): Promise<void> {
     try {
       // Check permissions first
-      const permStatus = await this.geolocationService.checkPermissions();
+      const permStatus = await this.geolocationService.checkGeolocationPermission();
 
-      if (permStatus.location === 'prompt') {
-        // Show some UI explaining why we need location
-        // Then request permission
-        await this.geolocationService.requestPermissions();
+      if (permStatus) {
+        // request permission
+        await this.geolocationService.requestGeolocationPermission();
       }
 
       // Initialize map with current location
@@ -131,11 +154,32 @@ export class MapComponent implements OnInit, OnDestroy, OnChanges {
     }
 
   }
+
   clearCenterMarker() {
-    throw new Error('Method not implemented.');
+    if (this.centerMarker) {
+      this.centerMarker.remove();
+      this.centerMarker = null;
+    }
   }
+
   enableCenterMarker() {
-    throw new Error('Method not implemented.');
+    if (!this.map) return;
+
+    const center = this.map.getCenter();
+
+    // Move existing marker if it exists
+    if (this.centerMarker) {
+
+      this.centerMarker.setLatLng(center);
+    } else {
+      // Create new marker
+      this.centerMarker = L.marker(center, {
+        icon: this.userIcon,
+        zIndexOffset: 1000 // Keep above other markers
+      })
+        .bindPopup('Esta aquí')
+        .addTo(this.map);
+    }
   }
 
   private addMarkers(coordinates: Coordinates[]): void {
@@ -182,8 +226,62 @@ export class MapComponent implements OnInit, OnDestroy, OnChanges {
         zoom: this.options.zoom,
         layers: this.options.layers
       });
+
+      //!!!
+      // Enable center marker by default
+      this.enableCenterMarker();
+
+      // Add hospital marker by default
+      this.addHospitalMarker();
+
       resolve();
     });
+  }
+
+  private addHospitalMarker(): void {
+    if (!this.map) return;
+
+    // Clear existing hospital marker if any
+    if (this.hospitalMarker) {
+      this.hospitalMarker.remove();
+      this.hospitalMarker = null;
+    }
+
+    // Show loading state if needed
+    this.isLoading = true;
+
+    // Get nearest hospital coordinates
+    this.geocodingService.findNearbyHospitals(this.currentLocation)
+      .subscribe({
+        next: (hospitals) => {
+          if (hospitals && hospitals.length > 0) {
+            // Place the marker for nearest hospital
+            this.hospitalMarker = L.marker(
+              [hospitals[0].lat, hospitals[0].lng],
+              {
+                icon: this.hospitalIcon,
+                zIndexOffset: 900 // Below user marker but above others
+              }
+            )
+              .bindPopup('Nearest Hospital')
+              .addTo(this.map!);
+
+            // Optional: Fit bounds to include both user and hospital
+            if (this.centerMarker) {
+              const group = L.featureGroup([this.centerMarker, this.hospitalMarker]);
+              this.map!.fitBounds(group.getBounds(), {
+                padding: [50, 50]
+              });
+            }
+          }
+        },
+        error: (error) => {
+          console.error('Failed to find nearby hospitals:', error);
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
   }
 
   private loadTiles(): Promise<void> {
