@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="['/sintomas/sintoma-detalle', sintomaId]"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Comentarios sobre {{ sintomaNombre }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="comentarios$ | async as comentarios; else noComments">
+    <ng-container *ngIf="comentarios.length > 0; else noComments">
+      <ion-card *ngFor="let comentario of comentarios">
+        <ion-item>
+          <ion-avatar slot="start">
+            <img *ngIf="comentario.imageUrl" [src]="comentario.imageUrl" />
+          </ion-avatar>
+          <ion-label>
+            <h2>{{ comentario.userName }}</h2>
+            <p>{{ comentario.comentario }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </ng-container>
+  </ng-container>
+  <ng-template #noComments>
+    <div class="no-comments">
+      <p>De momento no hay comentarios en este síntoma.</p>
+    </div>
+  </ng-template>
+</ion-content>

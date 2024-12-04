@@ -44,13 +44,22 @@ const routes: Routes = [
     loadChildren: () => import('./sintomas/detallesin/detallesin.module').then(m => m.DetallesinPageModule)
   },
   {
+    path: 'foro/comentario/:id/:nombre',
+    loadChildren: () => import('./foro/comentario/comentario.module').then(m => m.ComentarioPageModule)
+  },
+  {
+    path: 'foro/agregarcom/:id/:nombre',
+    loadChildren: () => import('./foro/agregarcom/agregarcom.module').then(m => m.AgregarcomPageModule)
+  },
+  {
     path: 'medicinas',
     loadChildren: () => import('./medicinas/medicinas.module').then(m => m.MedicinasPageModule)
   },
   {
     path: 'medicina-detalle/:id',
     loadChildren: () => import('./medicina-detalle/medicina-detalle.module').then(m => m.MedicinaDetallePageModule)
-  },  {
+  },
+  {
     path: 'perfil',
     loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
   },
