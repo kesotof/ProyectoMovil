@@ -5,7 +5,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastController, ActionSheetController } from '@ionic/angular';
 import { ImageComService } from 'src/service/imageCom.service';
 import { agregarComUseCase } from 'src/use-cases/agregarCom.use.case';
-import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-agregarcom',
@@ -28,8 +27,7 @@ export class AgregarcomPage implements OnInit {
     private toastController: ToastController,
     private actionSheetController: ActionSheetController,
     private imageComService: ImageComService,
-    private addCommentUseCase: agregarComUseCase,
-    private storage: Storage
+    private addCommentUseCase: agregarComUseCase
   ) {
     this.comentarioForm = this.fb.group({
       nombreMedicamento: ['', Validators.required],
@@ -37,15 +35,13 @@ export class AgregarcomPage implements OnInit {
     });
   }
 
-  async ngOnInit() {
-    await this.storage.create();
+  ngOnInit() {
     this.sintomaId = this.route.snapshot.paramMap.get('id')!;
     this.sintomaNombre = this.route.snapshot.paramMap.get('nombre')!;
-    this.afAuth.user.subscribe(async user => {
+    this.afAuth.user.subscribe(user => {
       if (user) {
         this.userName = user.displayName ?? user.email ?? '';
         this.userId = user.uid;
-        await this.storage.set('userName', this.userName);
       }
     });
   }
@@ -53,7 +49,7 @@ export class AgregarcomPage implements OnInit {
   async onSubmit() {
     if (this.comentarioForm.valid) {
       const comentarioData = this.comentarioForm.value;
-      comentarioData.userName = await this.storage.get('userName');
+      comentarioData.userName = this.userName;
       try {
         await this.addCommentUseCase.execute(this.sintomaNombre!, comentarioData, this.imageUrl, this.userId);
         this.presentToast('Comentario agregado exitosamente');

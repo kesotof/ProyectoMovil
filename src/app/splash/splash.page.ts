@@ -8,7 +8,7 @@ import { ViewWillEnter } from '@ionic/angular';
   templateUrl: './splash.page.html',
   styleUrls: ['./splash.page.scss'],
 })
-export class SplashPage implements OnInit, ViewWillEnter {
+export class SplashPage implements ViewWillEnter {
   ionViewWillEnter(): void {
     this.ViewWillEnter();
   }
@@ -19,9 +19,7 @@ export class SplashPage implements OnInit, ViewWillEnter {
     private router: Router,
     private sessionManager: SessionManager) { }
 
-  ngOnInit() {
 
-  }
 
   async ViewWillEnter() {
     const user = await this.sessionManager.getActiveUser();
