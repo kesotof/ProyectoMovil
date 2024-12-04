@@ -11,7 +11,6 @@ export class GeolocationService {
     constructor() { }
 
     public async checkGeolocationPermission(): Promise<boolean> {
-        // Check if running on web
         if (Capacitor.getPlatform() === 'web') {
             // Browser permission check
             if ('permissions' in navigator) {
@@ -19,15 +18,13 @@ export class GeolocationService {
                     const result = await navigator.permissions.query({ name: 'geolocation' });
                     return result.state === 'granted';
                 } catch {
-                    // Fallback for older browsers
                     return 'geolocation' in navigator;
                 }
             }
             return 'geolocation' in navigator;
         } else {
-            // Mobile permission check using Capacitor
+            // Mobile permission check
             try {
-                await this.requestGeolocationPermission();
                 const status = await Geolocation.checkPermissions();
                 return status.location === 'granted';
             } catch (error) {
@@ -39,13 +36,12 @@ export class GeolocationService {
 
     public async requestGeolocationPermission(): Promise<boolean> {
         if (Capacitor.getPlatform() === 'web') {
-            // Request permission for web
+            // Web permission request
             if ('permissions' in navigator) {
                 try {
                     const result = await navigator.permissions.query({ name: 'geolocation' });
                     if (result.state === 'prompt') {
-                        // Trigger a geolocation request to prompt the user
-                        return new Promise((resolve, reject) => {
+                        return new Promise((resolve) => {
                             navigator.geolocation.getCurrentPosition(
                                 () => resolve(true),
                                 () => resolve(false)
@@ -54,8 +50,7 @@ export class GeolocationService {
                     }
                     return result.state === 'granted';
                 } catch {
-                    // Fallback for older browsers
-                    return new Promise((resolve, reject) => {
+                    return new Promise((resolve) => {
                         navigator.geolocation.getCurrentPosition(
                             () => resolve(true),
                             () => resolve(false)
@@ -63,17 +58,17 @@ export class GeolocationService {
                     });
                 }
             }
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve) => {
                 navigator.geolocation.getCurrentPosition(
                     () => resolve(true),
                     () => resolve(false)
                 );
             });
         } else {
-            // Request permission for mobile using Capacitor
+            // Mobile permission request
             try {
-                const status = await this.requestGeolocationPermission();
-                return status;
+                const status = await Geolocation.requestPermissions();
+                return status.location === 'granted';
             } catch (error) {
                 console.error('Error requesting permissions:', error);
                 return false;
