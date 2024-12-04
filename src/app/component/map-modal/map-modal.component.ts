@@ -2,6 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { MapComponent } from '../map/map.component';
 
+
 export interface Coordinates {
   lat: number;
   lng: number;
@@ -62,12 +63,20 @@ export class MapModalComponent {
   }
 
   SMButtonClicked() {
-    this.gpsLocation += "SM";
-    this.zoom = this.randomNumber;
+    // call a number
+    this.callNumber("+56983731400");
   }
 
   AmbulanceButtonClicked() {
-    throw new Error('Method not implemented.');
+    this.callNumber("+56983731400");
+  }
+
+  private callNumber(phoneNumber:string): void {
+    try {
+      window.location.href = `tel:${phoneNumber}`;
+    } catch (error) {
+      console.error('Error making phone call:', error);
+    }
   }
 
 }
