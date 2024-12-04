@@ -17,6 +17,12 @@
       <ion-label position="floating">Comentario</ion-label>
       <ion-textarea formControlName="comentario"></ion-textarea>
     </ion-item>
+    <ion-item>
+      <ion-label>Imagen</ion-label>
+      <ion-icon [ngClass]="{'icon-red': !imageUrl, 'icon-green': imageUrl}" name="ellipse"></ion-icon>
+      <ion-button (click)="selectImageSource()">Seleccionar Imagen</ion-button>
+    </ion-item>
+    <ion-progress-bar *ngIf="uploadProgress > 0 && uploadProgress < 100" [value]="uploadProgress / 100"></ion-progress-bar>
     <ion-button expand="full" type="submit" [disabled]="!comentarioForm.valid">Agregar Comentario</ion-button>
   </form>
 </ion-content>
