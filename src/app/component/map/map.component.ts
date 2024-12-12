@@ -40,10 +40,11 @@ export class MapComponent implements OnInit, OnDestroy, OnChanges {
   private currentMarkers: L.Marker[] = [];
 
   // center user marker
+  private iconSize: L.PointExpression = [60, 60];
   private centerMarker: L.Marker | null = null;
   private readonly userIcon = L.icon({
     iconUrl: 'assets/icon/marker-user.png',
-    iconSize: [32, 32],
+    iconSize: this.iconSize,
     iconAnchor: [16, 32],
     popupAnchor: [0, -32]
   });
@@ -52,7 +53,7 @@ export class MapComponent implements OnInit, OnDestroy, OnChanges {
   private hospitalMarker: L.Marker | null = null;
   private readonly hospitalIcon = L.icon({
     iconUrl: 'assets/icon/marker-hospital.png',
-    iconSize: [32, 32],
+    iconSize: this.iconSize,
     iconAnchor: [16, 32],
     popupAnchor: [0, -32]
   });
