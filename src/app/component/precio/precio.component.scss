@@ -1,0 +1,65 @@
+ion-item {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  margin: 8px;
+  border-radius: 8px;
+  --background: white;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+ion-thumbnail {
+  --size: 100px;
+  margin-right: 16px;
+
+  img {
+    border-radius: 8px;
+    object-fit: cover;
+  }
+}
+
+.precio-info {
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    color: #333;
+  }
+
+  .farmacia {
+    font-size: 14px;
+    color: #285392;
+    margin: 4px 0;
+  }
+
+  .precio {
+    font-size: 18px;
+    font-weight: bold;
+    color: #035724;
+    margin: 0;
+  }
+}
+
+ion-icon[name="open-outline"] {
+  font-size: 20px;
+  color: #666;
+}
+
+.no-precios {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  h2 {
+    color: #666;
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+  }
+}
