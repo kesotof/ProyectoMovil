@@ -89,8 +89,8 @@ export class MapComponent implements OnInit, OnDestroy, OnChanges {
       const permStatus = await this.geolocationService.checkGeolocationPermission();
 
       //if (!permStatus) {
-        // request permission
-        //await this.geolocationService.requestGeolocationPermission();
+      // request permission
+      //await this.geolocationService.requestGeolocationPermission();
       //}
       await this.geolocationService.requestGeolocationPermission();
 
@@ -264,7 +264,7 @@ export class MapComponent implements OnInit, OnDestroy, OnChanges {
                 zIndexOffset: 900 // Below user marker but above others
               }
             )
-              .bindPopup('Nearest Hospital')
+              .bindPopup('Hospital más cercano')
               .addTo(this.map!);
 
             // Optional: Fit bounds to include both user and hospital
