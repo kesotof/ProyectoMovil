@@ -4,6 +4,11 @@
       <ion-back-button defaultHref="/medicinas"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ medicina?.nombre }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openPrecioModal()">
+        <ion-icon name="cart-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

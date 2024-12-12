@@ -5,6 +5,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FirestoreService } from 'src/service/firestore.service';
 import { ModalController } from '@ionic/angular';
 import { AgregarHorarioComponent } from '../agregar-horario/agregar-horario.component';
+import { PrecioComponent } from '../component/precio/precio.component';
+
 
 @Component({
   selector: 'app-medicina-detalle',
@@ -52,6 +54,17 @@ export class MedicinaDetallePage implements OnInit {
       }
     });
 
+    return await modal.present();
+  }
+
+  async openPrecioModal() {
+    const modal = await this.modalController.create({
+      component: PrecioComponent,
+      componentProps: {
+        medicina: this.medicina,
+        medicamentoId: this.medicina.id
+      }
+    });
     return await modal.present();
   }
 }

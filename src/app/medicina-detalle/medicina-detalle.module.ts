@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { MedicinaDetallePageRoutingModule } from './medicina-detalle-routing.module';
-
+import { PrecioComponent } from '../component/precio/precio.component';
 import { MedicinaDetallePage } from './medicina-detalle.page';
 
 @NgModule({
@@ -15,6 +15,6 @@ import { MedicinaDetallePage } from './medicina-detalle.page';
     IonicModule,
     MedicinaDetallePageRoutingModule
   ],
-  declarations: [MedicinaDetallePage]
+  declarations: [MedicinaDetallePage,PrecioComponent]
 })
 export class MedicinaDetallePageModule {}
